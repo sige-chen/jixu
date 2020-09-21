@@ -1,10 +1,14 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
-use app\modules\admin\helpers\AdminConfiguration;
 use app\widgets\Alert;
 /* @var \app\models\MdlCourses $course */
 ?>
+<ol class="admin-breadcrumb">
+  <li class="breadcrumb-item"><a href="<?php echo Url::to(['index/index']);?>">首页</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo Url::to(['course/index'])?>">课程管理</a></li>
+  <li class="breadcrumb-item">课程编辑</li>
+</ol>
 <div class="card">
   <div class="card-header">
     <h3 class="card-title">课程编辑</h3>
@@ -14,16 +18,28 @@ use app\widgets\Alert;
     <form method="post" enctype="multipart/form-data" action="<?php echo Url::to(['course/save']);?>">
       <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->getCsrfToken();?>">
       <input type="hidden" name="id" value="<?php echo $course->id; ?>">
+      
       <div class="form-group">
         <label>名称</label>
         <input type="text" class="form-control" name="form[name]" value="<?php echo Html::encode($course->name);?>">
       </div>
+      
+      <div class="form-group">
+        <label>原价</label>
+        <input type="number" class="form-control" name="form[price]" value="<?php echo Html::encode($course->price);?>">
+      </div>
+      
+      <div class="form-group">
+        <label>优惠价</label>
+        <input type="number" class="form-control" name="form[preferential_price]" value="<?php echo Html::encode($course->preferential_price);?>">
+      </div>
+      
       <div class="form-group">
         <label>封面图片</label>
         <img 
           id="img-thumbnail"
           <?php if ( $course->getIsNewRecord() ): ?>
-          src="<?php echo AdminConfiguration::get('course_default_thumbnail');?>"
+          src="img/course-default-thumbnail.png"
           <?php else : ?>
           src="<?php echo $course->thumbnail_url;?>" 
           <?php endif; ?>
@@ -31,6 +47,7 @@ use app\widgets\Alert;
         >
         <input type="file" class="form-control" name="thumbnail" id="file-thumbnail" onchange="onThumbnailFileChanged()">
       </div>
+      
       <div class="form-group">
         <label>描述</label>
         <textarea id="txt-description" name="form[description]" class="form-control"

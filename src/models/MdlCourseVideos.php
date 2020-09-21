@@ -13,6 +13,7 @@ use Yii;
  * @property string|null $thunmnail_url
  * @property int|null $length
  * @property int|null $collection_id
+ * @property int|null $index
  */
 class MdlCourseVideos extends \yii\db\ActiveRecord
 {
@@ -30,8 +31,9 @@ class MdlCourseVideos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['length', 'collection_id'], 'integer'],
+            [['length', 'collection_id', 'index'], 'integer'],
             [['title', 'video_url', 'thunmnail_url'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 32],
         ];
     }
 
@@ -41,12 +43,7 @@ class MdlCourseVideos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'video_url' => 'Video Url',
-            'thunmnail_url' => 'Thunmnail Url',
-            'length' => 'Length',
-            'collection_id' => 'Collection ID',
+            'title' => '标题',
         ];
     }
 }

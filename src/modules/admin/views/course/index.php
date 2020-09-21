@@ -1,17 +1,19 @@
 <?php 
 use yii\helpers\Html;
 use yii\helpers\Url;
-
+use app\helpers\JxDictionary;
 /* @var \app\models\MdlCourses[] $list */
 ?>
 <ol class="admin-breadcrumb">
-  <li class="breadcrumb-item"><a href="#">Home</a></li>
-  <li class="breadcrumb-item active">Starter Page</li>
+  <li class="breadcrumb-item"><a href="<?php echo Url::to(['index/index']);?>">首页</a></li>
+  <li class="breadcrumb-item">课程管理</li>
 </ol>
-
 <div class="card">
   <div class="card-header">
     <h3 class="card-title">课程列表</h3>
+    <div class="card-tools">
+      <a href="<?php echo Url::to(['course/edit'])?>" class="btn btn-tool" title="新建课程"><i class="fas fa-plus"></i></a>
+    </div>
   </div>
   <div class="card-body">
     <table class="table table-striped table-hover table-sm">
@@ -33,22 +35,44 @@ use yii\helpers\Url;
         <tr>
           <th scope="row"><?php echo $course->id; ?></th>
           <td><?php echo Html::encode($course->name); ?></td>
-          <td>销售中</td>
-          <td>购买:10 在线:在线 资源:10</td>
           <td>
-            <?php echo $course->videoCollectionCount; ?>
-            &nbsp;&nbsp;
-            <a href="<?php echo Url::to(['course/video-collection-index','course'=>$course->id])?>"
-            ><i class="fa fa-list" aria-hidden="true"></i>
+            <a href="javascript:;" onclick="onCourseStatusClicked(this)" 
+               data-id="<?php echo $course->id;?>" 
+               data-status="<?php echo $course->status;?>"
+               data-title="<?php echo Html::encode($course->name); ?>"
+            >
+              <?php echo Html::encode(JxDictionary::getItemValueName('COURSE_STATUS', $course->status));?>
+              <i class="fas fa-caret-down"></i>
+            </a>
           </td>
-          <td>0</td>
-          <td>12</td>
-          <td>2020-01-01</td>
+          <td>
+            <a href="<?php echo Url::to(['course/book-link-index','course'=>$course->id]);?>">
+              <i class="fa fa-shopping-cart"></i>
+              <?php echo $course->bookLinkCount;?>
+            </a>
+            &nbsp;&nbsp;
+            <a href="<?php echo Url::to(['course/book-online-edit','course'=>$course->id]);?>">
+              <i class="fa fa-file"></i>
+              <?php echo $course->hasOnlineBook ? 'ON' : 'OFF'; ?>
+            </a>
+            &nbsp;&nbsp;
+            <a href="<?php echo Url::to(['course/book-attach-index','course'=>$course->id]);?>">
+              <i class="fa fa-paperclip"></i>
+              <?php echo $course->bookAttachmentCount ; ?>
+            </a>
+           </td>
+          <td>
+            <a href="<?php echo Url::to(['course/video-collection-index','course'=>$course->id])?>"
+            ><i class="fa fa-list"></i> <?php echo $course->videoCollectionCount; ?></a>
+          </td>
+          <td><?php echo $course->userCollectionCount; ?></td>
+          <td><?php echo $course->userPurchaseCount;?></td>
+          <td><?php echo $course->published_at; ?></td>
           <td>
             <a href="<?php echo Url::to(['/frontend/course/index/index','id'=>$course->id]);?>" target="_blank"
             ><i class="fa fa-share" aria-hidden="true"></i></a>
             &nbsp;&nbsp;
-            <a href="<?php echo Url::to(['course/edit','id'=>$course->id]);?>"><i class="fa fa-edit" aria-hidden="true"></i>
+            <a href="<?php echo Url::to(['course/edit','id'=>$course->id]);?>"><i class="fa fa-edit" aria-hidden="true"></i></a>
           </td>
         </tr>
         <?php endforeach; ?>
@@ -57,105 +81,48 @@ use yii\helpers\Url;
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        
-        
-        
-        
-        
-        
-        
-        
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">视频</a>
-  </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">教材</a>
-  </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">..22222.</div>
-  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">.33..</div>
-</div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="mdl-course-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- 状态变更弹框 -->
+<div class="modal" tabindex="-1" id="modal-status-change">
   <div class="modal-dialog">
+    <form action="<?php echo Url::to(['course/status-change']);?>" method="post">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title">课程状态变更</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        
-        
-        
-        
-        
-        <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-        
-        
-        
+        <input type="hidden" name="msc-id" value="">
+        <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->getCsrfToken();?>">
+        <div class="form-group">
+          <label>课程</label>
+          <input type="text" class="form-control" id="txt-title" disabled>
+        </div>
+        <div class="form-group">
+          <label>状态</label>
+          <select class="form-control" name="msc-status">
+            <?php foreach ( JxDictionary::getItems('COURSE_STATUS') as $statusKey => $statusValue ) : ?>
+            <option value="<?php echo $statusKey; ?>"><?php echo $statusValue; ?>
+            <?php endforeach; ?>
+          </select>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-primary">保存</button>
       </div>
     </div>
+    </form>
   </div>
 </div>
+
+<script>
+/** 弹出状态变更弹框 */
+function onCourseStatusClicked( item ) {
+  $('[name="msc-id"]').val($(item).attr('data-id'));
+  $('[name="msc-status"]').val($(item).attr('data-status'));
+  $('#txt-title').val($(item).attr('data-title'));
+  $('#modal-status-change').modal('show');
+}
+</script>

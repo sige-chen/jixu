@@ -4,6 +4,7 @@ use yii\helpers\Url;
 /* @var \app\modules\admin\models\MdlAdminUsers $user */
 $user = Yii::$app->user->getIdentity();
 /* @var $content string */
+$activeMenuItem = (isset($this->params['ActiveMenuItem'])) ? $this->params['ActiveMenuItem'] : null;
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,10 +44,10 @@ $user = Yii::$app->user->getIdentity();
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="<?php echo Url::to(['index/index']); ?>" class="nav-link">主页</a>
+          <a href="<?php echo Url::to(['index/index']); ?>" class="nav-link"></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="javascript:;" class="nav-link" id="lbl-title">仪表盘</a>
+          <a href="javascript:;" class="nav-link" id="lbl-title"></a>
         </li>
       </ul>
     </nav>
@@ -73,23 +74,11 @@ $user = Yii::$app->user->getIdentity();
                 <p>仪表盘</p>
               </a>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+            <li class="nav-item">
+              <a href="<?php echo Url::to(['course/index']); ?>" class="nav-link <?php if ('course'==$activeMenuItem): ?>active<?php endif;?>">
                 <i class="nav-icon fas fa-file"></i>
-                <p>课程管理<i class="right fas fa-angle-left"></i></p>
+                <p>课程管理</p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="<?php echo Url::to(['course/index']); ?>" class="nav-link">
-                    <i class="fas fa-list nav-icon"></i><p>课程列表</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<?php echo Url::to(['course/edit']); ?>" class="nav-link">
-                    <i class="fas fa-pen-square nav-icon"></i><p>添加课程</p>
-                  </a>
-                </li>
-              </ul>
             </li>
             <li class="nav-item">
               <a href="<?php echo Url::to(['index/index']); ?>" class="nav-link">

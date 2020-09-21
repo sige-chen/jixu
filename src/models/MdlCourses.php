@@ -1,55 +1,54 @@
 <?php
-
 namespace app\models;
-
 use Yii;
-
 /**
- * This is the model class for table "jx_courses".
- *
  * @property int $id ID
  * @property string $name 名称
  * @property string|null $published_at 上架时间
  * @property string $thumbnail_url
- * @property int $buy_count
- * @property int $mark_count
  * @property int $price
+ * @property int $status
  * @property int $preferential_price
  * @property int $description
  * 
  * @property-read int $videoCollectionCount
+ * @property-read int $bookLinkCount
+ * @property-read boolean $hasOnlineBook
+ * @property-read int $bookAttachmentCount
+ * @property-read int $userCollectionCount
+ * @property-read int $userPurchaseCount
  */
-class MdlCourses extends \yii\db\ActiveRecord
-{
+class MdlCourses extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'jx_courses';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['name'], 'required'],
-            [['published_at','buy_count','mark_count','price','preferential_price','description'], 'safe'],
-            [['name','thumbnail_url'], 'string', 'max' => 255],
+            [['published_at','description','status'], 'safe'],
+            [['thumbnail_url'], 'string', 'max' => 255],
+            
+            [['name'], 'string', 'max' => 32],
+            [['price','preferential_price'],'number','max'=>10000000,'min'=>0],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'published_at' => 'Published At',
+            'name' => '名称',
+            'price' => '原价',
+            'preferential_price' => '优惠价'
         ];
     }
     
@@ -58,5 +57,30 @@ class MdlCourses extends \yii\db\ActiveRecord
      */
     public function getVideoCollectionCount() {
         return MdlCourseVideoCollections::find()->where(['course_id'=>$this->id])->count();
+    }
+    
+    public function getBookLinkCount() {
+        return MdlCourseBookLinks::find()->where(['course_id'=>$this->id])->count();
+    }
+    
+    /**
+     * @return boolean
+     */
+    public function getHasOnlineBook() {
+        return file_exists(sprintf('%s/web/uploads/courses/books/online/%d.pdf',
+            \Yii::$app->basePath,
+            $this->id
+        ));
+    }
+    
+    public function getBookAttachmentCount() {
+        return MdlCourseBookAttachments::find()->where(['course_id'=>$this->id])->count();
+    }
+    
+    public function getUserCollectionCount() {
+        return MdlUserCourseCollections::find()->where(['course_id'=>$this->id])->count();
+    }
+    public function getUserPurchaseCount() {
+        return MdlUserCoursePurchases::find()->where(['course_id'=>$this->id])->count();
     }
 }

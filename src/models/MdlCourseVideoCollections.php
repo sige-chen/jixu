@@ -30,6 +30,7 @@ class MdlCourseVideoCollections extends \yii\db\ActiveRecord
             [['course_id'], 'required'],
             [['course_id'], 'integer'],
             [['title','introduction','thumbnail_url'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 32],
         ];
     }
 
@@ -39,13 +40,12 @@ class MdlCourseVideoCollections extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'course_id' => 'Course ID',
-            'title' => 'Title',
+            'introduction' => '描述',
+            'title' => '标题',
         ];
     }
     
     public function getVideoCount() {
-        return 0;
+        return MdlCourseVideos::find()->where(['collection_id'=>$this->id])->count();
     }
 }

@@ -1,14 +1,23 @@
 <?php
 use yii\helpers\Url;
 use yii\helpers\Html;
+use app\widgets\Alert;
+use yii\base\Widget;
 /* @var \app\models\MdlCourses $course */
 /* @var \app\models\MdlCourseVideoCollections $collection */
 ?>
+<ol class="admin-breadcrumb">
+  <li class="breadcrumb-item"><a href="<?php echo Url::to(['index/index']);?>">首页</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo Url::to(['course/index']);?>">课程管理</a></li>
+  <li class="breadcrumb-item"><a href="<?php echo Url::to(['course/video-collection-index','course'=>$collection->course_id]);?>">视频合集管理</a></li>
+  <li class="breadcrumb-item">视频合集编辑</li>
+</ol>
 <div class="card">
   <div class="card-header">
     <h3 class="card-title">视频合集编辑</h3>
   </div>
   <div class="card-body">
+    <?php echo Alert::widget(); ?>
     <form method="post" enctype="multipart/form-data" action="<?php echo Url::to(['course/video-collection-save']);?>">
       <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->getCsrfToken();?>">
       <input type="hidden" name="id" value="<?php echo $collection->id; ?>">
