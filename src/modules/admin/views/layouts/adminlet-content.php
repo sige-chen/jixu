@@ -81,7 +81,7 @@ $activeMenuItem = (isset($this->params['ActiveMenuItem'])) ? $this->params['Acti
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?php echo Url::to(['index/index']); ?>" class="nav-link">
+              <a href="<?php echo Url::to(['setting/index']); ?>" class="nav-link <?php if ('setting'==$activeMenuItem): ?>active<?php endif;?>">
                 <i class="nav-icon fas fa-cog"></i>
                 <p>系统配置</p>
               </a>
