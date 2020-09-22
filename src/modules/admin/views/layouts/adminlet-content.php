@@ -1,42 +1,29 @@
 <?php 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\modules\admin\assets\AdminAsset;
 /* @var \app\modules\admin\models\MdlAdminUsers $user */
 $user = Yii::$app->user->getIdentity();
 /* @var $content string */
 $activeMenuItem = (isset($this->params['ActiveMenuItem'])) ? $this->params['ActiveMenuItem'] : null;
+$bundle = AdminAsset::register($this);
 ?>
-<!DOCTYPE html>
+<?php $this->beginPage(); ?>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>技续后台管理系统</title>
-  <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
+  <?php $this->head(); ?>
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-  <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css">
-  <!-- jQuery -->
-  <script src="../../plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
-  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="../../dist/js/adminlte.min.js"></script>
   <style>
   body {font-size: 14px;}
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+  <?php $this->beginBody(); ?>
   <div class="wrapper">
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
       <ul class="navbar-nav">
@@ -107,5 +94,7 @@ $activeMenuItem = (isset($this->params['ActiveMenuItem'])) ? $this->params['Acti
       </section>
     </div>
   </div>
+  <?php $this->endBody(); ?>
 </body>
 </html>
+<?php $this->endPage(); ?>

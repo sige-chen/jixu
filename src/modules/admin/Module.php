@@ -17,9 +17,9 @@ class Module extends \yii\base\Module
     /**
      * {@inheritdoc}
      */
-    public function init()
-    {
+    public function init() {
         parent::init();
         \Yii::$app->user->identityClass = MdlAdminUsers::class;
+        $this->setAliases(['@admin-assets' => __DIR__ . '/assets']);
     }
 }
