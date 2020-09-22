@@ -6,6 +6,10 @@ class AdminAsset extends AssetBundle {
      * @var string
      */
     public $sourcePath = '@admin-assets';
+    /**
+     * @var string
+     */
+    public $baseUrl = '@web';
     
     /**
      * @var array
@@ -25,4 +29,13 @@ class AdminAsset extends AssetBundle {
         'dist/js/adminlte.min.js',
     ];
     public $depends = [];
+    
+    /**
+     * @param unknown $res
+     * @return string
+     */
+    public static function getResUrl($res) {
+        $bundle = self::register(\Yii::$app->view);
+        return \Yii::$app->view->getAssetManager()->getAssetUrl($bundle, $res);
+    }
 } 

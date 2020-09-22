@@ -2,6 +2,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use app\widgets\Alert;
+use app\modules\admin\assets\AdminAsset;
 /* @var \app\models\MdlCourses $course */
 ?>
 <ol class="admin-breadcrumb">
@@ -39,7 +40,7 @@ use app\widgets\Alert;
         <img 
           id="img-thumbnail"
           <?php if ( $course->getIsNewRecord() ): ?>
-          src="img/course-default-thumbnail.png"
+          src="<?php echo AdminAsset::getResUrl('img/course-default-thumbnail.png'); ?>"
           <?php else : ?>
           src="<?php echo $course->thumbnail_url;?>" 
           <?php endif; ?>

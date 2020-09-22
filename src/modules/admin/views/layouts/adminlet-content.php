@@ -41,7 +41,7 @@ $bundle = AdminAsset::register($this);
     
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <a href="javascript:;" class="brand-link">
-        <img src="img/logo.png" class="brand-image elevation-3" style="opacity: .8">
+        <img src="<?php echo AdminAsset::getResUrl('img/logo.png'); ?>" class="brand-image elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">后台管理系统</span>
       </a>
       <div class="sidebar">
@@ -53,7 +53,7 @@ $bundle = AdminAsset::register($this);
             <a href="#" class="d-block"><?php echo Html::encode($user->nickname); ?></a>
           </div>
           <div style="line-height: 32px;color: darkgrey;padding-left: 50%;">
-            <a href="<?php echo Url::to(['login/logout']);?>"><i class="fas fa-sign-out-alt"></i></a>
+            <a href="<?php echo Url::to(['login/logout']);?>"><i class="fas fa-sign-out-alt" style="line-height: 32px;"></i></a>
           </div>
         </div>
         <nav class="mt-2">

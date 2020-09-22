@@ -3,6 +3,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use app\widgets\Alert;
 use yii\base\Widget;
+use app\modules\admin\assets\AdminAsset;
 /* @var \app\models\MdlCourseVideos $video */
 /* @var \app\models\MdlCourseVideoCollections $collection */
 ?>
@@ -47,7 +48,7 @@ use yii\base\Widget;
         <label>视频封面</label>
         <img 
           <?php if ( $video->getIsNewRecord() ): ?>
-          src="img/video-default-thumbnail.png" 
+          src="<?php echo AdminAsset::getResUrl('img/video-default-thumbnail.png'); ?>" 
           <?php else : ?>
           src="<?php echo $video->thunmnail_url; ?>"
           <?php endif;?>

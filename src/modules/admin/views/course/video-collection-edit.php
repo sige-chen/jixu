@@ -3,6 +3,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use app\widgets\Alert;
 use yii\base\Widget;
+use app\modules\admin\assets\AdminAsset;
 /* @var \app\models\MdlCourses $course */
 /* @var \app\models\MdlCourseVideoCollections $collection */
 ?>
@@ -31,7 +32,7 @@ use yii\base\Widget;
         <img 
           id="img-thumbnail"
           <?php if ( $collection->getIsNewRecord() ): ?>
-          src="img/video-default-thumbnail.png"
+          src="<?php echo AdminAsset::getResUrl('img/video-default-thumbnail.png'); ?>"
           <?php else : ?>
           src="<?php echo $collection->thumbnail_url;?>" 
           <?php endif; ?>
