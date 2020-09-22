@@ -65,6 +65,9 @@ $activeMenuItem = (isset($this->params['ActiveMenuItem'])) ? $this->params['Acti
           <div class="info">
             <a href="#" class="d-block"><?php echo Html::encode($user->nickname); ?></a>
           </div>
+          <div style="line-height: 32px;color: darkgrey;padding-left: 50%;">
+            <a href="<?php echo Url::to(['login/logout']);?>"><i class="fas fa-sign-out-alt"></i></a>
+          </div>
         </div>
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">

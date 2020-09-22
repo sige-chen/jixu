@@ -116,4 +116,13 @@ class LoginController extends Controller {
         \Yii::$app->getSession()->setFlash('success', '密码重置成功');
         return $this->redirect(['login/password-reset','token'=>$token]);
     }
+    
+    /**
+     * 登出系统
+     * @return string
+     */
+    public function actionLogout() {
+        \Yii::$app->user->logout();
+        return $this->redirect(['login/index']);
+    }
 }
