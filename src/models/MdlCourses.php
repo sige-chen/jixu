@@ -1,6 +1,7 @@
 <?php
 namespace app\models;
 use Yii;
+use app\helpers\JxDictionary;
 /**
  * @property int $id ID
  * @property string $name 名称
@@ -82,5 +83,8 @@ class MdlCourses extends \yii\db\ActiveRecord {
     }
     public function getUserPurchaseCount() {
         return MdlUserCoursePurchases::find()->where(['course_id'=>$this->id])->count();
+    }
+    public static function getOnSellCount() {
+        return self::find()->where(['status'=>JxDictionary::value('COURSE_STATUS', 'ONSELL')])->count();
     }
 }

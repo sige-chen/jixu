@@ -69,7 +69,7 @@ $activeMenuItem = (isset($this->params['ActiveMenuItem'])) ? $this->params['Acti
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-              <a href="<?php echo Url::to(['index/index']); ?>" class="nav-link">
+              <a href="<?php echo Url::to(['index/index']); ?>" class="nav-link <?php if ('dashboard'==$activeMenuItem): ?>active<?php endif;?>">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>仪表盘</p>
               </a>
