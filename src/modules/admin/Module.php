@@ -2,7 +2,7 @@
 
 namespace app\modules\admin;
 
-use app\modules\admin\models\MdlAdminUsers;
+use app\models\MdlAdminUsers;
 
 /**
  * admin module definition class

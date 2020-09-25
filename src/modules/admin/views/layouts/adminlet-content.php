@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\modules\admin\assets\AdminAsset;
-/* @var \app\modules\admin\models\MdlAdminUsers $user */
+/* @var \app\models\MdlAdminUsers $user */
 $user = Yii::$app->user->getIdentity();
 /* @var $content string */
 $activeMenuItem = (isset($this->params['ActiveMenuItem'])) ? $this->params['ActiveMenuItem'] : null;
@@ -68,6 +68,12 @@ $bundle = AdminAsset::register($this);
               <a href="<?php echo Url::to(['course/index']); ?>" class="nav-link <?php if ('course'==$activeMenuItem): ?>active<?php endif;?>">
                 <i class="nav-icon fas fa-file"></i>
                 <p>课程管理</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?php echo Url::to(['page/index']); ?>" class="nav-link <?php if ('page'==$activeMenuItem): ?>active<?php endif;?>">
+                <i class="nav-icon fas fa-file-code"></i>
+                <p>页面管理</p>
               </a>
             </li>
             <li class="nav-item">

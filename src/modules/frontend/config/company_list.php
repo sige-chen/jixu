@@ -1,0 +1,21 @@
+<?php
+return array(
+    array('logo'=>'picture/150457215559adf2fb122df3.18201505.jpg'),
+    array('logo'=>'picture/150457208859adf2b88a4d46.27183131.jpg'),
+    array('logo'=>'picture/150457208859adf2b88a4d46.27183131.jpg'),
+    array('logo'=>'picture/150457212759adf2df2e2903.98563744.png'),
+    array('logo'=>'picture/150457207259adf2a8279054.45452615.jpg'),
+    array('logo'=>'picture/150457204859adf290a2c597.19686971.jpg'),
+    array('logo'=>'picture/150457201259adf26c505c30.57459667.png'),
+    array('logo'=>'picture/150457196659adf23e6ccf38.38171927.jpg'),
+    array('logo'=>'picture/150457194159adf225129769.20941587.jpg'),
+    array('logo'=>'picture/150457191959adf20f60e887.48283950.jpg'),
+    array('logo'=>'picture/150457189759adf1f931b1a9.67281151.jpg'),
+    array('logo'=>'picture/150457187259adf1e04c8eb9.98989168.jpg'),
+    array('logo'=>'picture/150405543159a61087982498.68565572.jpg'),
+    array('logo'=>'picture/150405503059a60ef68ce366.82477077.jpg'),
+    array('logo'=>'picture/150389790559a3a931092568.04705569.jpg'),
+    array('logo'=>'picture/150383122959a2a4bda77e91.66850118.jpg'),
+    array('logo'=>'picture/150383103959a2a3ff9f5c96.63802139.jpg'),
+    array('logo'=>'picture/150383096359a2a3b30f53c9.93904469.jpg'),
+);

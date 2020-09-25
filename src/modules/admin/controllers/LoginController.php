@@ -2,7 +2,7 @@
 namespace app\modules\admin\controllers;
 use yii\web\Controller;
 use app\modules\admin\models\FrmLogin;
-use app\modules\admin\models\MdlAdminUsers;
+use app\models\MdlAdminUsers;
 use app\modules\admin\models\MdlAdminPasswordResetTokens;
 use app\modules\admin\helpers\AdminConfiguration;
 use yii\helpers\Url;

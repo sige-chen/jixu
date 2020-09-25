@@ -1,0 +1,21 @@
+<?php
+return array(
+    array('name'=>'湖北民族学院','logo'=>'picture/150457620759ae02cf34cc18.78590950.jpg'),
+    array('name'=>'贵州商学院','logo'=>'picture/150457616359ae02a3859323.78771646.png'),
+    array('name'=>'贵州民族大学','logo'=>'picture/150457612559ae027d682de1.53338768.png'),
+    array('name'=>'贵州工业职业技术学院','logo'=>'picture/150457608159ae0251960364.07753351.png'),
+    array('name'=>'贵州大学','logo'=>'picture/150457604859ae0230137a15.40461579.png'),
+    array('name'=>'成都文理学院','logo'=>'picture/150457601959ae0213197248.47004738.png'),
+    array('name'=>'北京师范大学','logo'=>'picture/150457597459ae01e625a393.10421856.jpg'),
+    array('name'=>'北方工业大学','logo'=>'picture/150457590159ae019d904989.15692919.jpg'),
+    array('name'=>'合肥工业大学','logo'=>'picture/150397807159a4e2570e4240.39112878.jpg'),
+    array('name'=>'安徽新华学院','logo'=>'picture/150397773059a4e1027567b9.78745278.jpg'),
+    array('name'=>'四川工商学院','logo'=>'picture/150391206559a3e081512c63.16580046.jpg'),
+    array('name'=>'安徽财经大学','logo'=>'picture/150391195759a3e015a133c4.48667199.jpg'),
+    array('name'=>'合肥师范大学','logo'=>'picture/150391190359a3dfdfa58d37.72004723.jpg'),
+    array('name'=>'安徽大学江淮学院','logo'=>'picture/150391161159a3debb9da307.87979019.jpg'),
+    array('name'=>'安徽职业技术学院','logo'=>'picture/150391157659a3de981b5151.26092426.jpg'),
+    array('name'=>'安徽林业职业技术学院','logo'=>'picture/150391150959a3de558d7bc2.38686851.jpg'),
+    array('name'=>'安徽国际商务职业学院','logo'=>'picture/150391113259a3dcdcde3505.96687641.jpg'),
+    array('name'=>'南京财经大学','logo'=>'picture/150382945159a29dcb035211.27984598.png'),
+);

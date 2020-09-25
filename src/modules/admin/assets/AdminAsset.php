@@ -28,7 +28,10 @@ class AdminAsset extends AssetBundle {
         'plugins/bootstrap/js/bootstrap.bundle.min.js',
         'dist/js/adminlte.min.js',
     ];
-    public $depends = [];
+    /**
+     * @var array
+     */
+    public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
     
     /**
      * @param unknown $res

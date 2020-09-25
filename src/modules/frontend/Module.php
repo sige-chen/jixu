@@ -1,5 +1,6 @@
 <?php
 namespace app\modules\frontend;
+use app\models\MdlUsers;
 /**
  * frontend module definition class
  */
@@ -14,6 +15,7 @@ class Module extends \yii\base\Module {
      */
     public function init() {
         parent::init();
-        $this->modules = ['course'=>['class'=>'\\app\\modules\\frontend\\modules\\course\\Module']];
+        \Yii::$app->user->identityClass = MdlUsers::class;
+        $this->params = require __DIR__ . '/config/config.php';
     }
 }

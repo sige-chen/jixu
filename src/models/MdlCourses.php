@@ -11,6 +11,8 @@ use app\helpers\JxDictionary;
  * @property int $status
  * @property int $preferential_price
  * @property int $description
+ * @property int $is_suggested
+ * @property int $short_desc
  * 
  * @property-read int $videoCollectionCount
  * @property-read int $bookLinkCount
@@ -33,7 +35,7 @@ class MdlCourses extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['name'], 'required'],
-            [['published_at','description','status'], 'safe'],
+            [['published_at','description','status','is_suggested', 'short_desc','teacher_id','short_name'], 'safe'],
             [['thumbnail_url'], 'string', 'max' => 255],
             
             [['name'], 'string', 'max' => 32],
@@ -86,5 +88,13 @@ class MdlCourses extends \yii\db\ActiveRecord {
     }
     public static function getOnSellCount() {
         return self::find()->where(['status'=>JxDictionary::value('COURSE_STATUS', 'ONSELL')])->count();
+    }
+    
+    /**
+     * 获取教师信息
+     * @return \app\models\MdlAdminUsers
+     */
+    public function getTeacher() {
+        return MdlAdminUsers::findOne($this->teacher_id);
     }
 }
