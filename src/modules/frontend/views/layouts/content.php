@@ -43,7 +43,7 @@ a {color:#6b6b6b;}
       <a class="a1" href="<?php echo Url::to(['login/index']);?>"​><span>登录/注册</span></a>
       <a class="a2 show_contact" href="#"​><span>我要报名</span></a>
       <?php else :?>
-      <a style="width:200px" href="<?php echo Url::to(['user/home']);?>"​><span><?php echo Html::encode($user->getIdentity()->email);?></span></a>
+      <a style="text-align:right;width: 150px;" href="<?php echo Url::to(['user/home']);?>"​><span><?php echo Html::encode($user->getIdentity()->nickname);?></span></a>
       <a style="width: 50px;margin-left: 0;text-align: left;" href="<?php echo Url::to(['login/logout']); ?>"​><span>退出</span></a>
       <?php endif; ?>
     </div>
