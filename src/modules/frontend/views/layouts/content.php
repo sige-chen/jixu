@@ -3,9 +3,14 @@ use yii\helpers\Url;
 use app\helpers\JxConfiguration;
 use yii\helpers\Html;
 use app\helpers\JxDictionary;
+use app\modules\frontend\assets\FrontendAsset;
+/* @var $content string */
+/* @var \yii\web\View $this */
 /* @var string $content */ 
 $user = Yii::$app->user;
+$bundle = FrontendAsset::register($this);
 ?>
+<?php $this->beginPage(); ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -14,29 +19,21 @@ $user = Yii::$app->user;
 <title><?php echo Html::encode($this->params['title']);?> - 技续 - 为技能延续</title>
 <meta name="keywords" content="技续，培训，课程，网课" />
 <meta name="description" content="技续为大家提供了丰富的在线课程，每个课程由经验丰富的的讲师精心录制。" /> 
-<link href="css/style.css" rel="stylesheet">
-<link href="css/slick.css" rel="stylesheet">
-<link href="css/cui.css" rel="stylesheet">
-<link href="css/lib.css" rel="stylesheet">
-<link href="css/tanchubiaodan.css" rel="stylesheet">
-<link href="css/nav.css" rel="stylesheet" type="text/css">
+<?php $this->head(); ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<style>
-a {color:#6b6b6b;}
-</style>
-<script src="js/syhd.js"></script>
-<script src="js/jquery.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <style type="text/css">
+a {color:#6b6b6b;}
 .clear{clear:both;}
 .slick-ind2 .slick-dots { bottom: -20px; }
 </style>
 </head>
 <body>
+  <?php $this->beginBody(); ?>
   <div style="display:none"></div>
   <div class="header">
     <div class="logo">
-      <a href="<?php echo Url::to(['index/index']); ?>"​><img src="images/logo.png"></a>
+      <a href="<?php echo Url::to(['index/index']); ?>"​><img src="<?php echo FrontendAsset::getResUrl('images/logo.png'); ?>"></a>
     </div>
     <div class="hdr">
       <?php if ( $user->isGuest ): ?>
@@ -71,7 +68,7 @@ a {color:#6b6b6b;}
 <?= $content ?>
 <!-- footer -->
     <?php if (Yii::$app->user->isGuest): ?>
-    <div class="float-ft" style="background-image: url(images/ft-adbg.jpg);">
+    <div class="float-ft" style="background-image: url(<?php echo FrontendAsset::getResUrl('images/ft-adbg.jpg'); ?>);">
       <div class="wp">
         <div class="ft-form">
           <span class="close"></span>
@@ -207,13 +204,7 @@ a {color:#6b6b6b;}
   </div>
   
   
-<!--表单弹出结束-->
-<script src="js/lsjs.js"></script>
-<script src="js/slick.min.js"></script>
-<script src="js/lib.js"></script>
-<script src="js/easyform.js"></script>
-<script src="js/yii.js"></script>
-<script src="js/yii.activeform.js"></script>
+<?php $this->endBody(); ?>
 <script type="text/javascript">
 <?php if ( Yii::$app->user->isGuest ): ?>
 /**
@@ -278,3 +269,4 @@ a {color:#6b6b6b;}
           </script>
           </body>
 </html>
+<?php $this->endPage(); ?>

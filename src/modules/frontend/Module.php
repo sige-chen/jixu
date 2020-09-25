@@ -17,5 +17,6 @@ class Module extends \yii\base\Module {
         parent::init();
         \Yii::$app->user->identityClass = MdlUsers::class;
         $this->params = require __DIR__ . '/config/config.php';
+        $this->setAliases(['@frontend-assets' => __DIR__ . '/assets']);
     }
 }

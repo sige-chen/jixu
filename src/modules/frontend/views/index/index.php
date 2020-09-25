@@ -2,6 +2,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use app\helpers\JxConfiguration;
+use app\modules\frontend\assets\FrontendAsset;
 /* @var array $banners */
 /* @var array $notis */
 /* @var array $courses */
@@ -45,31 +46,31 @@ use app\helpers\JxConfiguration;
         <div class="row">
           <ul class="ul-pic1">
             <li>
-              <a href="javascript:;" class="item" style="background-image: url(images/pic1-1.png);">
+              <a href="javascript:;" class="item" style="background-image: url(<?php echo FrontendAsset::getResUrl('images/pic1-1.png'); ?>);">
                 <h4>01</h4>
                 <p>小班教学<br>全程面授</p>
               </a>
             </li>
             <li>
-              <a href="javascript:;" class="item" style="background-image: url(images/pic1-2.png);">
+              <a href="javascript:;" class="item" style="background-image: url(<?php echo FrontendAsset::getResUrl('images/pic1-2.png'); ?>);">
                 <h4>02</h4>
                 <p>大牛导师</p>
               </a>
             </li>
             <li>
-              <a href="javascript:;" class="item" style="background-image: url(images/pic1-3.png);">
+              <a href="javascript:;" class="item" style="background-image: url(<?php echo FrontendAsset::getResUrl('images/pic1-3.png'); ?>);">
                 <h4>03</h4>
                 <p>项目实践</p>
               </a>
             </li>
             <li>
-              <a href="javascript:;" class="item" style="background-image: url(images/pic1-4.png);">
+              <a href="javascript:;" class="item" style="background-image: url(<?php echo FrontendAsset::getResUrl('images/pic1-4.png'); ?>);">
                 <h4>04</h4>
                 <p>直通名企</p>
               </a>
             </li>
             <li>
-              <a href="javascript:;"​ class="item" style="background-image: url(images/pic1-5.png);">
+              <a href="javascript:;"​ class="item" style="background-image: url(<?php echo FrontendAsset::getResUrl('images/pic1-5.png'); ?>);">
                 <h4>05</h4>
                 <p>就业保障</p>
               </a>
@@ -233,11 +234,11 @@ use app\helpers\JxConfiguration;
   <div class="main-ft">
     <div class="wp">
       <ul class="link">
-        <li><a style="background-image: url(images/dianlaosl.png);">真实企业实训</a></li>
-        <li><a style="background-image: url(images/link-icon2.png);">高端人才培养基地</a></li>
-        <li><a style="background-image: url(images/link-icon3.png);">大牛导师授课</a></li>
-        <li><a style="background-image: url(images/link-icon4.png);">精品视频教程</a></li>
-        <li><a style="background-image: url(images/link-icon5.png);">免费职业规划</a></li>
+        <li><a style="background-image: url(<?php echo FrontendAsset::getResUrl('images/dianlaosl.png'); ?>)">真实企业实训</a></li>
+        <li><a style="background-image: url(<?php echo FrontendAsset::getResUrl('images/link-icon2.png'); ?>);">高端人才培养基地</a></li>
+        <li><a style="background-image: url(<?php echo FrontendAsset::getResUrl('images/link-icon3.png'); ?>);">大牛导师授课</a></li>
+        <li><a style="background-image: url(<?php echo FrontendAsset::getResUrl('images/link-icon4.png'); ?>);">精品视频教程</a></li>
+        <li><a style="background-image: url(<?php echo FrontendAsset::getResUrl('images/link-icon5.png'); ?>);">免费职业规划</a></li>
       </ul>
     </div>
   </div>
