@@ -63,6 +63,9 @@ $config = [
 		'admin' => [
             'class' => 'app\modules\admin\Module',
         ],
+	    'mobile' => [
+	        'class' => 'app\modules\mobile\Module',
+	    ],
     ],
 ];
 
