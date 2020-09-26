@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use app\widgets\Alert;
 use app\modules\admin\assets\AdminAsset;
 /* @var \app\models\MdlCourses $course */
+/* @var \app\models\MdlAdminUsers[] $teachers */
 ?>
 <ol class="admin-breadcrumb">
   <li class="breadcrumb-item"><a href="<?php echo Url::to(['index/index']);?>">首页</a></li>
@@ -54,6 +55,34 @@ use app\modules\admin\assets\AdminAsset;
         <textarea id="txt-description" name="form[description]" class="form-control"
         ><?php echo Html::encode($course->description); ?></textarea>
       </div>
+      
+      <div class="form-group">
+        <label>推荐到主页</label>
+        <input type="hidden" name="form[is_suggested]" value="0">
+        <input type="checkbox" class="form-control" name="form[is_suggested]" value="1" <?php if(1==$course->is_suggested):?>checked<?php endif;?> style="width: 24px;">
+      </div>
+      
+      <div class="form-group">
+        <label>简短介绍</label>
+        <input type="text" class="form-control" name="form[short_desc]" value="<?php echo Html::encode($course->short_desc);?>">
+      </div>
+      
+      <div class="form-group">
+        <label>责任教师</label>
+        <select class="form-control" name="form[teacher_id]">
+          <?php foreach ( $teachers as $teacher ) : ?>
+          <option value="<?php echo $teacher->id?>" <?php if($course->teacher_id==$teacher->id):?>selected<?php endif;?>>
+            <?php echo Html::encode($teacher->nickname);?>
+          </option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label>简称</label>
+        <input type="text" class="form-control" name="form[short_name]" value="<?php echo Html::encode($course->short_name);?>">
+      </div>
+      
       <button type="submit" class="btn btn-primary">保存</button>
     </form>
   </div>

@@ -41,7 +41,7 @@ class CourseController extends WebController {
      */
     public function actionDetail( $id ) {
         $this->layout = '@app/modules/frontend/views/layouts/course';
-        $course = MdlCourses::findOne($id);
+        $course = MdlCourses::findOne(['id'=>$id, 'status'=>JxDictionary::value('COURSE_STATUS', 'ONSELL')]);
         if ( null === $course ) {
             throw new HttpException(404);
         }

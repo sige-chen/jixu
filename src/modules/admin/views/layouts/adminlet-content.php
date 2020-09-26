@@ -77,6 +77,12 @@ $bundle = AdminAsset::register($this);
               </a>
             </li>
             <li class="nav-item">
+              <a href="<?php echo Url::to(['employee/index']); ?>" class="nav-link <?php if ('employee'==$activeMenuItem): ?>active<?php endif;?>">
+                <i class="nav-icon fas fa-cog"></i>
+                <p>职员管理</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="<?php echo Url::to(['setting/index']); ?>" class="nav-link <?php if ('setting'==$activeMenuItem): ?>active<?php endif;?>">
                 <i class="nav-icon fas fa-cog"></i>
                 <p>系统配置</p>

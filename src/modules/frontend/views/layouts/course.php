@@ -73,7 +73,7 @@ $courseActiveItem = $this->params['courseActiveItem'];
          <?php $teacher = $course->getTeacher(); ?>
          <img src="<?php echo $teacher->photo_url; ?>" style="width: 100%;">
          <hr>
-         <p style="color: #676767;"><?php echo Html::encode($teacher->intorduction);?></p>
+         <p style="color: #676767;"><?php echo Html::encode($teacher->introduction);?></p>
          <br>
         </div>
       </div>

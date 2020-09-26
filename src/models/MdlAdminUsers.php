@@ -16,7 +16,7 @@ use yii\web\IdentityInterface;
  * @property string $photo_url 头像链接
  * @property string $type
  * @property string $title
- * @property string $intorduction
+ * @property string $introduction
  */
 class MdlAdminUsers extends \yii\db\ActiveRecord implements IdentityInterface {
     /**
@@ -39,7 +39,7 @@ class MdlAdminUsers extends \yii\db\ActiveRecord implements IdentityInterface {
             [['photo_url'], 'string', 'max' => 255],
             
             
-            [['type','title','intorduction'], 'safe'],
+            [['type','title','introduction'], 'safe'],
         ];
     }
 

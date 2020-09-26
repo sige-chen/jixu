@@ -71,7 +71,11 @@ use app\helpers\JxDictionary;
           <td><?php echo $course->userPurchaseCount;?></td>
           <td><?php echo $course->published_at; ?></td>
           <td>
-            <a href="<?php echo Url::to(['/frontend/course/index/index','id'=>$course->id]);?>" target="_blank"
+            <a href="<?php echo Url::to(['course/delete','course'=>$course->id]);?>"
+               onclick="return confirm('是否确定删除该课程？');"
+            ><i class="fa fa-trash"></i></a>
+            &nbsp;&nbsp;
+            <a href="<?php echo Url::to(['/frontend/course/detail','id'=>$course->id]);?>" target="_blank"
             ><i class="fa fa-share" aria-hidden="true"></i></a>
             &nbsp;&nbsp;
             <a href="<?php echo Url::to(['course/edit','id'=>$course->id]);?>"><i class="fa fa-edit" aria-hidden="true"></i></a>

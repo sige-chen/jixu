@@ -11,6 +11,7 @@ use app\models\MdlCourseBookAttachments;
 use app\helpers\JxDictionary;
 use app\modules\admin\helpers\UploadFileHandler;
 use app\modules\admin\helpers\AdminConfiguration;
+use app\models\MdlAdminUsers;
 /**
  * Default controller for the `admin` module
  */
@@ -56,7 +57,12 @@ class CourseController extends WebController {
         if ( $this->flashExists('course') ) {
             $course->setAttributes($this->flashGet('course'));
         }
-        return $this->render('edit',['course'=>$course]);
+        
+        $teachers = MdlAdminUsers::findAll(['type'=>JxDictionary::value('ADMIN_USER_TYPE', 'TEACHER')]);
+        return $this->render('edit',[
+            'course'=>$course,
+            'teachers' => $teachers,
+        ]);
     }
     
     /**
@@ -90,6 +96,19 @@ class CourseController extends WebController {
         $course->save();
         
         $this->redirect(['course/index']);
+    }
+    
+    /**
+     * 删除课程
+     * @param int $course
+     * @return \yii\web\Response
+     */
+    public function actionDelete( $course ) {
+        $course = MdlCourses::findOne(['id'=>$course]);
+        if ( null !== $course ) {
+            $course->delete();
+        }
+        return $this->redirect(['course/index']);
     }
     
     /**
