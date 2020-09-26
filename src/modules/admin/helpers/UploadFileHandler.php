@@ -31,7 +31,7 @@ class UploadFileHandler {
         $handler = new self();
         $handler->file = UploadedFile::getInstanceByName($config['file']);
         if ( $config['require'] && (null===$handler->file) ) {
-            $this->errors[] = '文件上传失败';
+            $handler->errors[] = '文件上传失败';
             return $handler;
         }
         
