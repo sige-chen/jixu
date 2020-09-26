@@ -15,6 +15,7 @@ use yii\helpers\Url;
   <div class="card-header">
     <h3 class="card-title"><?php echo Html::encode($collection->title); ?> 视频列表</h3>
     <div class="card-tools">
+      &nbsp;
       <a href="<?php echo Url::to(['course/video-edit','collection'=>$collection->id])?>" class="btn btn-tool" title="上传视频">
         <i class="fas fa-upload"></i>
       </a>
