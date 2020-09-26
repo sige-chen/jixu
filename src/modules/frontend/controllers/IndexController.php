@@ -9,6 +9,17 @@ use app\modules\frontend\helpers\WebController;
 
 class IndexController extends WebController {
     /**
+     * 演示遮挡
+     * @return string
+     */
+    public function actionDemo() {
+        if ( 'jixu' === $this->request->post('code') ) {
+            return $this->redirect(['index/index']);
+        }
+        return $this->render('demo');
+    }
+    
+    /**
      * @return string
      */
     public function actionIndex() {
