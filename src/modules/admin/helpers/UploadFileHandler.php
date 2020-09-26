@@ -21,9 +21,33 @@ class UploadFileHandler {
      * @var array
      */
     private $rules = array();
+    
+    /**
+     * 通过配置项初始化
+     * @param array $config
+     * return self
+     */
+    public static function setup( $config ) {
+        $handler = new self();
+        $handler->file = UploadedFile::getInstanceByName($config['file']);
+        if ( $config['require'] && (null===$handler->file) ) {
+            $this->errors[] = '文件上传失败';
+            return $handler;
+        }
+        
+        $fileName = md5(sprintf('%s-%s', \Yii::$app->getRequest()->remoteIP, microtime()));
+        if ( null !== $handler->file ) {
+            $fileName = $fileName.'.'.$handler->file->getExtension();
+        }
+        $handler->setSavePath("{$config['path']}/{$fileName}");
+        $handler->setAllowedExtensions($config['exts']);
+        return $handler;
+    }
+    
     /**
      * @param string $file
      * @return self
+     * @deprecated 请使用setup()来配置
      */
     public static function handle( $file ) {
         $handler = new self();
@@ -109,7 +133,12 @@ class UploadFileHandler {
      * @return string
      */
     public function saveAndGetDownloadUrl() {
-        $this->file->saveAs(\Yii::$app->basePath.'/web/uploads/'.$this->savePath);
+        $filepath = \Yii::$app->basePath.'/web/uploads/'.$this->savePath;
+        $folder = dirname($filepath);
+        if ( !is_dir($folder) ) {
+            mkdir($folder, 0777, true);
+        }
+        $this->file->saveAs($filepath);
         return Url::to('uploads/'.$this->savePath, true);
     }
     

@@ -276,11 +276,7 @@ class CourseController extends WebController {
      * @return string
      */
     public function actionVideoSave() {
-        $file = UploadFileHandler::handle('video');
-        $file->setAllowedExtensions(['mp4']);
-        if ( !$file->hasFile() ) {
-            return $this->goBackWithError('文件上传失败');
-        }
+        $file = UploadFileHandler::setup($this->module->params['uploads']['course-video']);
         if ( $file->validate()->hasError() ) {
             return $this->goBackWithError($file->errors);
         }
@@ -299,7 +295,6 @@ class CourseController extends WebController {
             return $this->redirect(['course/video-edit','collection'=>$video->collection_id,'id'=>$video->id]);
         }
         
-        $file->setSavePath('courses/video-collections/videos/'.$video->id.'.mp4');
         $video->video_url = $file->saveAndGetDownloadUrl();
         $video->save();
         
@@ -308,8 +303,13 @@ class CourseController extends WebController {
         if ( !empty($thumbnail) ) {
             $thumbnail = substr($thumbnail, 22);
             $thumbnail = base64_decode($thumbnail);
-            file_put_contents(\Yii::$app->basePath.'/web/uploads/courses/video-collections/videos/thumbnails/'.$video->id.'-'.time().'.png', $thumbnail);
-            $video->thunmnail_url = Url::to('uploads/courses/video-collections/videos/thumbnails/'.$video->id.'-'.time().'.png', true);
+            $filename = md5(sprintf('%s-%s', \Yii::$app->getRequest()->remoteIP, microtime())).'.png';
+            $folder = \Yii::$app->basePath.'/web/uploads/course-video-thumbnails/';
+            if ( !is_dir($folder) ) {
+                mkdir($folder, 0777, true);
+            }
+            file_put_contents("{$folder}/{$filename}", $thumbnail);
+            $video->thunmnail_url = Url::to("uploads/course-video-thumbnails/{$filename}", true);
             $video->save();
         }
         

@@ -19,6 +19,7 @@ class Module extends \yii\base\Module
      */
     public function init() {
         parent::init();
+        $this->params = require __DIR__ . '/config/config.php';
         \Yii::$app->user->identityClass = MdlAdminUsers::class;
         $this->setAliases(['@admin-assets' => __DIR__ . '/assets']);
     }
