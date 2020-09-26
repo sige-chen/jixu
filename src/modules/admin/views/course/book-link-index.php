@@ -14,7 +14,10 @@ use app\helpers\JxDictionary;
   <div class="card-header">
     <h3 class="card-title"><?php echo Html::encode($course->name); ?> 教材购买链接列表</h3>
     <div class="card-tools">
-      <a href="<?php echo Url::to(['course/book-link-edit','course'=>$course->id])?>" class="btn btn-tool" title="添加链接"><i class="fas fa-plus"></i></a>
+      &nbsp;
+      <a href="<?php echo Url::to(['course/book-link-edit','course'=>$course->id])?>" class="btn btn-tool" title="添加链接">
+        <i class="fas fa-plus"></i>
+      </a>
     </div>
   </div>
   <div class="card-body">
