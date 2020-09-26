@@ -104,7 +104,7 @@ use app\modules\frontend\assets\FrontendAsset;
                   <?php echo Html::encode($teacher->nickname); ?>
                   <span><?php echo Html::encode($teacher->title); ?></span>
                 </h5>
-                <p><?php echo Html::encode($teacher->intorduction); ?></p>
+                <p><?php echo Html::encode($teacher->introduction); ?></p>
               </div>
             </a>
             <?php endforeach; ?>
