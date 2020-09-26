@@ -58,8 +58,8 @@ use app\modules\admin\assets\AdminAsset;
     </form>
   </div>
 </div>
-<link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.css">
-<script src="../../plugins/summernote/summernote-bs4.min.js"></script>
+<link rel="stylesheet" href="<?php echo AdminAsset::getResUrl('plugins/summernote/summernote-bs4.css'); ?>">
+<script src="<?php echo AdminAsset::getResUrl('plugins/summernote/summernote-bs4.min.js'); ?>"></script>
 <script>
 /** 点击封面图片后触发文件选择 */
 function onThumbnailClicked() {

@@ -12,8 +12,10 @@ use app\helpers\JxDictionary;
   <div class="card-header">
     <h3 class="card-title">课程列表</h3>
     <div class="card-tools">
+      &nbsp;
       <a href="<?php echo Url::to(['course/edit'])?>" class="btn btn-tool" title="新建课程"><i class="fas fa-plus"></i></a>
     </div>
+    
   </div>
   <div class="card-body">
     <table class="table table-striped table-hover table-sm">
