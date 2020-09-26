@@ -33,7 +33,7 @@ class MdlCourseVideos extends \yii\db\ActiveRecord
         return [
             [['length', 'collection_id', 'index'], 'integer'],
             [['title', 'video_url', 'thunmnail_url'], 'string', 'max' => 255],
-            [['title'], 'string', 'max' => 32],
+            [['title'], 'string', 'max' => 64],
         ];
     }
 
