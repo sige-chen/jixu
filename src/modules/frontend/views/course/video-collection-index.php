@@ -7,7 +7,7 @@ use yii\helpers\Url;
 <?php foreach ( $collections as $collection ) : ?>
 <div class="row" style="background: white;padding: 20px;box-shadow: 5px 5px 5px 0px #e7e7e7;margin: 0; margin-bottom:20px;">
   <div class="col-md-3">
-    <img src="<?php echo $collection->thumbnail_url; ?>" style="width: 100%;">
+    <img src="<?php echo $collection->thumbnail_url; ?>" style="width: 100%;height: 125px;">
   </div>
   <div class="col-md-9">
     <a href="<?php echo Url::to(['course/video-index', 'collection'=>$collection->id]); ?>">

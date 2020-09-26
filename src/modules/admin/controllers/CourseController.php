@@ -183,6 +183,8 @@ class CourseController extends WebController {
      */
     public function actionVideoCollectionSave() {
         $collection = new MdlCourseVideoCollections();
+        $collection->thumbnail_url = Url::to('img/video-default-thumbnail.png');
+        
         $id = \Yii::$app->getRequest()->post('id');
         if ( !empty($id) ) {
             $collection = MdlCourseVideoCollections::findOne($id);
@@ -204,8 +206,6 @@ class CourseController extends WebController {
         if ( $file->hasFile() ) {
             $file->setSavePath('courses/video-collections/thumbnails/'.$collection->id.'-'.time());
             $collection->thumbnail_url = $file->saveAndGetDownloadUrl();
-        } else {
-            $collection->thumbnail_url = Url::to('img/video-default-thumbnail.png');
         }
         $collection->save();
         $this->redirect(['course/video-collection-index','course'=>$collection->course_id]);
