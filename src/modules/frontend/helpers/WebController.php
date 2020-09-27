@@ -1,5 +1,7 @@
 <?php
 namespace app\modules\frontend\helpers;
+use yii\helpers\Url;
+
 abstract class WebController extends \yii\web\Controller {
     /**
      * 设置页面标题
@@ -26,5 +28,15 @@ abstract class WebController extends \yii\web\Controller {
     protected function goBackWithMessage( $type, $message ) {
         \Yii::$app->getSession()->setFlash($type, $message);
         return $this->redirect($this->request->referrer);
+    }
+    
+    /**
+     * 登录检查
+     * @return \yii\web\Response
+     */
+    protected function loginRequired() {
+        if ( \Yii::$app->user->getIsGuest() ) {
+            return $this->redirect(['login/index', ['backurl'=>Url::current()]]);
+        }
     }
 }

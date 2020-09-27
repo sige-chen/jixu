@@ -71,6 +71,9 @@ use app\helpers\JxDictionary;
           <td><?php echo $course->userPurchaseCount;?></td>
           <td><?php echo $course->published_at; ?></td>
           <td>
+            <a href="<?php echo Url::to(['course/token-index','course'=>$course->id]);?>"
+            ><i class="fas fa-passport"></i></i></a>
+            &nbsp;&nbsp;
             <a href="<?php echo Url::to(['course/delete','course'=>$course->id]);?>"
                onclick="return confirm('是否确定删除该课程？');"
             ><i class="fa fa-trash"></i></a>

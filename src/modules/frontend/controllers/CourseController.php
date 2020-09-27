@@ -19,6 +19,7 @@ use yii\helpers\Url;
 use app\models\MdlCourseBookLinks;
 use app\models\MdlCourseBookAttachments;
 use app\models\MdlUserCourseCollections;
+use app\models\MdlCoursePurchaseTokens;
 class CourseController extends WebController {
     /**
      * @var string
@@ -668,4 +669,44 @@ class CourseController extends WebController {
         ]);
         return $this->redirect($this->request->referrer);
     }
+    
+    /**
+     * 课程购买
+     * @param unknown $course
+     * @return string
+     */
+    public function actionPurchase( $course ) {
+        $this->loginRequired();
+        $this->setPageTitle('课程购买');
+        $course = MdlCourses::findOne($course);
+        if ( null === $course ) {
+            throw new HttpException(404);
+        }
+        if ( $course->isPurchased ) {
+            return $this->redirect(['course/detail','id'=>$course->id]);
+        }
+        return $this->render('purchase',[
+            'course' => $course
+        ]);
+    }
+    
+    /**
+     * 课程购买确认
+     * @return string
+     */
+    public function actionPurchaseSave() {
+        $token = MdlCoursePurchaseTokens::findOne(['token'=>$this->request->post('token')]);
+        if ( null === $token ) {
+            return $this->goBackWithMessage('error', '无效的密钥');
+        }
+        
+        $token->status = JxDictionary::value('COURSE_TOKEN_STATUS', 'USED');
+        $token->save();
+        
+        $purchase = new MdlUserCoursePurchases();
+        $purchase->user_id = \Yii::$app->user->id;
+        $purchase->course_id = $token->course_id;
+        $purchase->save();
+        return $this->redirect(['course/detail', 'id'=>$purchase->course_id]);
+     }
 }

@@ -10,8 +10,8 @@ $courseActiveItem = $this->params['courseActiveItem'];
 <?php $this->beginContent('@app/modules/frontend/views/layouts/content.php');?>
 <div style="background-color: #f3f3f3;padding: 20px;">
   <div class="container">
-    <p style="color: #7a7a7a;margin-bottom:10px;">首页 &gt; 课程详情</p>
     <div class="row" style="background: white;padding: 20px 0 10px 0;box-shadow: 5px 5px 5px 0px #e7e7e7;padding-bottom: 0;">
+      <?php if ( !$course->isPurchased ) : ?>
       <div class="col-md-4">
         <img src="<?php echo $course->thumbnail_url;?>" style="width: 100%;height:250px;">
       </div>
@@ -38,9 +38,30 @@ $courseActiveItem = $this->params['courseActiveItem'];
           <span style="text-decoration: line-through;color: #b1b1b1;">￥<?php echo $course->price; ?></span>
         </p>
         <div style="margin-top: 59px;">
-          <button style="width: 200px;height: 50px;background-color: #ff4444;color: #f7f7f7;border: solid #ff0202 1px;">立即购买</button>
+          <a href="<?php echo Url::to(['course/purchase', 'course'=>$course->id]); ?>">
+            <button style="width: 200px;height: 50px;background-color: #ff4444;color: #f7f7f7;border: solid #ff0202 1px;">立即购买</button>
+          </a>
         </div>
       </div>
+      <?php else : ?>
+      <div class="col-md-12">
+        <img src="<?php echo $course->thumbnail_url; ?>" style="height: 50px;vertical-align: bottom;">
+        <h1 style="margin: 0;font-size: 32px;display: inline-block;line-height: 50px;"><?php echo Html::encode($course->name); ?></h1>
+        <?php if ( $course->isCollected ) :?>
+        <button type="button" class="btn btn-default" style="vertical-align: super;float: right;margin: 8px;">
+          <a href="<?php echo Url::to(['course/collection-delete', 'course'=>$course->id]); ?>">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          </a>
+        </button>
+        <?php else :?>
+        <button type="button" class="btn btn-default" style="vertical-align: super;float: right;margin: 8px;">
+          <a href="<?php echo Url::to(['course/collect', 'course'=>$course->id]); ?>">
+            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+          </a>
+        </button>
+        <?php endif; ?>
+      </div>
+      <?php endif; ?>
       <div class="col-md-12" style="background-color: #f7f7f7;margin-top: 10px;border-top: solid #cacaca 1px;">
         <ul class="course-menu">
           <li class="item <?php if ('index'===$courseActiveItem):?>active<?php endif;?>">

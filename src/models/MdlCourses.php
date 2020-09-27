@@ -13,6 +13,7 @@ use app\helpers\JxDictionary;
  * @property int $description
  * @property int $is_suggested
  * @property int $short_desc
+ * @property string $taobao_link
  * 
  * @property-read int $videoCollectionCount
  * @property-read int $bookLinkCount
@@ -21,6 +22,7 @@ use app\helpers\JxDictionary;
  * @property-read int $userCollectionCount
  * @property-read int $userPurchaseCount
  * @property-read int $isCollected
+ * @property-read int $isPurchased
  */
 class MdlCourses extends \yii\db\ActiveRecord {
     /**
@@ -37,7 +39,7 @@ class MdlCourses extends \yii\db\ActiveRecord {
         return [
             [['name'], 'required'],
             [['published_at','description','status','is_suggested', 'short_desc','teacher_id','short_name'], 'safe'],
-            [['thumbnail_url'], 'string', 'max' => 255],
+            [['thumbnail_url','taobao_link'], 'string', 'max' => 255],
             
             [['name'], 'string', 'max' => 32],
             [['price','preferential_price'],'number','max'=>10000000,'min'=>0],
@@ -105,6 +107,17 @@ class MdlCourses extends \yii\db\ActiveRecord {
      */
     public function getIsCollected() {
         return MdlUserCourseCollections::find()->where([
+            'user_id' => \Yii::$app->user->id,
+            'course_id' => $this->id,
+        ])->exists();
+    }
+    
+    /**
+     * 获取是否购买
+     * @return boolean
+     */
+    public function getIsPurchased() {
+        return MdlUserCoursePurchases::find()->where([
             'user_id' => \Yii::$app->user->id,
             'course_id' => $this->id,
         ])->exists();

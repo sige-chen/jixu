@@ -83,6 +83,11 @@ use app\modules\admin\assets\AdminAsset;
         <input type="text" class="form-control" name="form[short_name]" value="<?php echo Html::encode($course->short_name);?>">
       </div>
       
+      <div class="form-group">
+        <label>淘宝链接</label>
+        <input type="text" class="form-control" name="form[taobao_link]" value="<?php echo Html::encode($course->taobao_link);?>">
+      </div>
+      
       <button type="submit" class="btn btn-primary">保存</button>
     </form>
   </div>

@@ -12,6 +12,8 @@ use app\helpers\JxDictionary;
 use app\modules\admin\helpers\UploadFileHandler;
 use app\modules\admin\helpers\AdminConfiguration;
 use app\models\MdlAdminUsers;
+use app\models\MdlCoursePurchaseTokens;
+use yii\web\HttpException;
 /**
  * Default controller for the `admin` module
  */
@@ -502,6 +504,36 @@ class CourseController extends WebController {
         if ( null !== $attachment ) {
             $attachment->delete();
         }
+        return $this->redirect($this->request->referrer);
+    }
+    
+    /**
+     * 课程密钥列表
+     * @param int $course
+     * @return string
+     */
+    public function actionTokenIndex( $course ) {
+        $this->activeMenuItem('course');
+        $course = MdlCourses::findOne($course);
+        if ( null === $course ) {
+            throw new HttpException(404);
+        }
+        $tokens = MdlCoursePurchaseTokens::findAll(['course_id' => $course->id]);
+        return $this->render('token-index', ['tokens'=>$tokens,'course'=>$course]);
+    }
+    
+    /**
+     * 课程密钥生成
+     * @param int $course
+     * @return string
+     */
+    public function actionTokenGenerate( $course ) {
+        $token = new MdlCoursePurchaseTokens();
+        $token->admin_id = \Yii::$app->user->id;
+        $token->course_id = $course;
+        $token->status = JxDictionary::value('COURSE_TOKEN_STATUS', 'NEW');
+        $token->token = md5(sprintf('%s-%s-%s-%s', $token->admin_id, $token->course_id, microtime(), uniqid()));
+        $token->save();
         return $this->redirect($this->request->referrer);
     }
 }
