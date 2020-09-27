@@ -20,6 +20,7 @@ use app\helpers\JxDictionary;
  * @property-read int $bookAttachmentCount
  * @property-read int $userCollectionCount
  * @property-read int $userPurchaseCount
+ * @property-read int $isCollected
  */
 class MdlCourses extends \yii\db\ActiveRecord {
     /**
@@ -96,5 +97,16 @@ class MdlCourses extends \yii\db\ActiveRecord {
      */
     public function getTeacher() {
         return MdlAdminUsers::findOne($this->teacher_id);
+    }
+    
+    /**
+     * 获取是否已经标记收藏
+     * @return boolean
+     */
+    public function getIsCollected() {
+        return MdlUserCourseCollections::find()->where([
+            'user_id' => \Yii::$app->user->id,
+            'course_id' => $this->id,
+        ])->exists();
     }
 }

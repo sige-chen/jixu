@@ -18,6 +18,7 @@ use app\models\MdlCourseVideos;
 use yii\helpers\Url;
 use app\models\MdlCourseBookLinks;
 use app\models\MdlCourseBookAttachments;
+use app\models\MdlUserCourseCollections;
 class CourseController extends WebController {
     /**
      * @var string
@@ -640,5 +641,31 @@ class CourseController extends WebController {
         $date->modify('-1 month');
         $dateinfo['prevMon'] = $date->format('Y-m');
         return $this->render('calendar-index',['calendar'=>$calendar,'iconmap'=>$iconMap, 'dateinfo'=>$dateinfo,'course'=>$course]);
+    }
+    
+    /**
+     * 收藏课程
+     * @param int $course
+     * @return string
+     */
+    public function actionCollect( $course ) {
+        $collection = new MdlUserCourseCollections();
+        $collection->user_id = \Yii::$app->user->getId();
+        $collection->course_id = $course;
+        $collection->save();
+        return $this->redirect($this->request->referrer);
+    }
+    
+    /**
+     * 移除收藏的课程
+     * @param int $course
+     * @return string
+     */
+    public function actionCollectionDelete( $course ) {
+        MdlUserCourseCollections::deleteAll([
+            'user_id' => \Yii::$app->user->getId(),
+            'course_id' => $course,
+        ]);
+        return $this->redirect($this->request->referrer);
     }
 }

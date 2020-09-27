@@ -17,8 +17,19 @@ $courseActiveItem = $this->params['courseActiveItem'];
       </div>
       <div class="col-md-8">
         <div class="btn-group pull-right">
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></button>
-          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></button>
+          <?php if ( $course->isCollected ) :?>
+          <button type="button" class="btn btn-default">
+            <a href="<?php echo Url::to(['course/collection-delete', 'course'=>$course->id]); ?>">
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            </a>
+          </button>
+          <?php else :?>
+          <button type="button" class="btn btn-default">
+            <a href="<?php echo Url::to(['course/collect', 'course'=>$course->id]); ?>">
+              <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+            </a>
+          </button>
+          <?php endif; ?>
         </div>
         <h1 style="margin: 0 0 20px 0;font-size: 32px;"><?php echo Html::encode($course->name); ?></h1>
         <p style="color: #969696;margin-bottom: 20px;"><?php echo $course->getUserPurchaseCount(); ?> 人购买</p>
