@@ -32,8 +32,16 @@ use app\modules\admin\assets\AdminAsset;
           src="<?php echo $video->video_url;?>"
           <?php endif;?>
         ></video>
+        <input type="hidden" name="form[video_url]" value="<?php echo $video->video_url;?>">
         <?php if ( $video->getIsNewRecord() ) : ?>
-        <input type="file" class="form-control" name="video" id="file-thumbnail" onchange="onFileVideoChange()">
+        <div class="input-group mb-3">
+          <input type="file" class="form-control" name="video" id="file-thumbnail" onchange="onFileVideoChange()">
+          <div class="input-group-append" class="file-upload-status">
+            <span class="input-group-text" id="file-status">
+              <i class="fas fa-ellipsis-h"></i>
+            </span>
+          </div>
+        </div>
         <?php endif; ?>
       </div>
       <div class="form-group">
@@ -54,13 +62,30 @@ use app\modules\admin\assets\AdminAsset;
           <?php endif;?>
           id="img-thumbnail"
         >
-        <input type="hidden" id="txt-thumbnail" name="thumbnail">
+        <input type="hidden" name="form[thunmnail_url]" value="<?php echo $video->thunmnail_url;?>">
       </div>
       <button type="submit" class="btn btn-primary">保存</button>
     </form>
   </div>
 </div>
 <script>
+$(document).ready(function() {
+  $("#file-thumbnail").AjaxFileUpload({
+    action : '<?php echo Url::to(['resource/upload', 'type'=>'course-video']); ?>',
+    onChange : function() {
+      $('#file-status').html('<i class="fas fa-hourglass-start"></i>');
+    },
+    onSubmit : function() {
+      $('#file-status').html('<div class="spinner-border" role="status" style="height:1rem;width:1rem;"></div>');
+    },
+    onComplete: function(filename, response) {
+      $('[name="form[video_url]"]').val(response.data.url);
+      $('#file-status').html('<i class="fas fa-check"></i>');
+      $("#file-thumbnail").attr('disabled', 'disabled');
+    }
+  });
+});
+
 /** 视频文件选择事件 */
 function onFileVideoChange() {
   var files = document.getElementById("file-thumbnail").files[0];
@@ -80,8 +105,12 @@ function onFileVideoChange() {
     canvas.height = video.videoHeight * scale; 
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height); 
     $('#img-thumbnail').attr('src', canvas.toDataURL("image/png"));
-    $('#txt-thumbnail').val($('#img-thumbnail').attr('src'));
     $('[name="form[length]"]').val(parseInt($('#video-preview')[0].duration));
+    $.post('<?php echo Url::to(['resource/save-base64-content','type'=>'course-video-thumbnail']);?>', {
+        content : $('#img-thumbnail').attr('src')
+    }, function( response ) {
+      $('[name="form[thunmnail_url]"]').val(response.data.url);
+    },'json');
   }
 }
 </script>

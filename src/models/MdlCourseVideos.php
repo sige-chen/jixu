@@ -31,6 +31,7 @@ class MdlCourseVideos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['video_url'], 'required'],
             [['length', 'collection_id', 'index'], 'integer'],
             [['title', 'video_url', 'thunmnail_url'], 'string', 'max' => 255],
             [['title'], 'string', 'max' => 64],
@@ -44,6 +45,7 @@ class MdlCourseVideos extends \yii\db\ActiveRecord
     {
         return [
             'title' => '标题',
+            'video_url' => '链接',
         ];
     }
 }

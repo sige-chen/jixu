@@ -27,6 +27,7 @@ class AdminAsset extends AssetBundle {
         'plugins/jquery/jquery.min.js',
         'plugins/bootstrap/js/bootstrap.bundle.min.js',
         'dist/js/adminlte.min.js',
+        'lib/jquery.ajaxfileupload.js',
     ];
     /**
      * @var array

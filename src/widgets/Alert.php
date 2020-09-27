@@ -2,6 +2,7 @@
 namespace app\widgets;
 
 use Yii;
+use yii\helpers\Html;
 
 /**
  * Alert widget renders a message from session flash. All flash messages are displayed
@@ -47,29 +48,32 @@ class Alert extends \yii\bootstrap\Widget
     /**
      * {@inheritdoc}
      */
-    public function run()
-    {
+    public function run() {
         $session = Yii::$app->session;
         $flashes = $session->getAllFlashes();
         $appendClass = isset($this->options['class']) ? ' ' . $this->options['class'] : '';
-
+        
+        $alerts = [];
         foreach ($flashes as $type => $flash) {
             if (!isset($this->alertTypes[$type])) {
                 continue;
             }
-
+            
             foreach ((array) $flash as $i => $message) {
-                echo \yii\bootstrap\Alert::widget([
-                    'body' => $message,
-                    'closeButton' => $this->closeButton,
-                    'options' => array_merge($this->options, [
-                        'id' => $this->getId() . '-' . $type . '-' . $i,
-                        'class' => $this->alertTypes[$type] . $appendClass,
-                    ]),
-                ]);
+                $message = Html::encode($message);
+                $className = $this->alertTypes[$type];
+                
+                $alerts[] = <<<EOF
+<div class="alert {$className}" role="alert">
+  {$message}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+EOF;
             }
-
             $session->removeFlash($type);
+            return implode('', $alerts);
         }
     }
 }

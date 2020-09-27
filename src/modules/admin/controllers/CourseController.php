@@ -276,11 +276,6 @@ class CourseController extends WebController {
      * @return string
      */
     public function actionVideoSave() {
-        $file = UploadFileHandler::setup($this->module->params['uploads']['course-video']);
-        if ( $file->validate()->hasError() ) {
-            return $this->goBackWithError($file->errors);
-        }
-        
         $video = new MdlCourseVideos();
         $id = $this->request->post('id');
         if ( !empty($id) ) {
@@ -294,25 +289,6 @@ class CourseController extends WebController {
             $this->flashSetByArray(['video'=>$video->toArray(),'error'=>$video->getErrorSummary(true)]);
             return $this->redirect(['course/video-edit','collection'=>$video->collection_id,'id'=>$video->id]);
         }
-        
-        $video->video_url = $file->saveAndGetDownloadUrl();
-        $video->save();
-        
-        # 保存封面
-        $thumbnail = $this->request->post('thumbnail');
-        if ( !empty($thumbnail) ) {
-            $thumbnail = substr($thumbnail, 22);
-            $thumbnail = base64_decode($thumbnail);
-            $filename = md5(sprintf('%s-%s', \Yii::$app->getRequest()->remoteIP, microtime())).'.png';
-            $folder = \Yii::$app->basePath.'/web/uploads/course-video-thumbnails/';
-            if ( !is_dir($folder) ) {
-                mkdir($folder, 0777, true);
-            }
-            file_put_contents("{$folder}/{$filename}", $thumbnail);
-            $video->thunmnail_url = Url::to("uploads/course-video-thumbnails/{$filename}", true);
-            $video->save();
-        }
-        
         $this->redirect(['course/video-index','collection'=>$video->collection_id]);
     }
     

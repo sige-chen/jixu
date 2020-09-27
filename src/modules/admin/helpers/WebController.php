@@ -1,6 +1,7 @@
 <?php
 namespace app\modules\admin\helpers;
 use yii\web\Controller;
+use yii\web\Response;
 abstract class WebController extends Controller {
     public function render404() {
         echo "404";
@@ -56,5 +57,30 @@ abstract class WebController extends Controller {
     protected function goBackWithError( $message ) {
         $this->flashSet('error', $message);
         return $this->redirect($this->request->referrer);
+    }
+    
+    /**
+     * @param unknown $message
+     * @return \yii\web\Response
+     */
+    protected function ajaxError( $message ) {
+        $this->response->format = Response::FORMAT_RAW;
+        return json_encode([
+            'success' => false,
+            'message' => $message,
+            'data' => null,
+        ]);
+    }
+    
+    /**
+     * @param unknown $data
+     */
+    protected function ajaxSuccess( $data=null ) {
+        $this->response->format = Response::FORMAT_RAW;
+        return json_encode([
+            'success' => true,
+            'message' => '',
+            'data' => $data,
+        ]);
     }
 }

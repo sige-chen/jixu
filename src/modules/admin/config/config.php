@@ -7,5 +7,9 @@ return array(
             'exts' => ['mp4'],
             'require' => true,
         ),
+        'course-video-thumbnail' => array(
+            'path' => 'course-video-thumbnails',
+            'ext' => 'png',
+        ),
     ),
 );
