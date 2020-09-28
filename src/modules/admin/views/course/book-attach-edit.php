@@ -24,7 +24,15 @@ use yii\base\Widget;
       <?php if ( $attachment->getIsNewRecord() ): ?>
       <div class="form-group">
         <label>文件</label>
-        <input type="file" class="form-control" name="file" onchange="onFileChanged()">
+        <div class="input-group mb-3">
+          <input type="hidden" name="form[download_url]" value="<?php echo $attachment->download_url; ?>">
+          <input type="file" class="form-control" name="file" onchange="onFileChanged()" id="attach-file">
+          <div class="input-group-append" class="file-upload-status">
+            <span class="input-group-text" id="file-status">
+              <i class="fas fa-ellipsis-h"></i>
+            </span>
+          </div>
+        </div>
       </div>
       <?php endif; ?>
       <div class="form-group">
@@ -39,4 +47,21 @@ use yii\base\Widget;
 function onFileChanged() {
   $('[name="form[name]"]').val($('[name="file"]')[0].files[0].name);
 }
+
+$(document).ready(function() {
+    $("#attach-file").AjaxFileUpload({
+      action : '<?php echo Url::to(['resource/upload', 'type'=>'course-book-attachment']); ?>',
+      onChange : function() {
+        $('#file-status').html('<i class="fas fa-hourglass-start"></i>');
+      },
+      onSubmit : function() {
+        $('#file-status').html('<div class="spinner-border" role="status" style="height:1rem;width:1rem;"></div>');
+      },
+      onComplete: function(filename, response) {
+        $('[name="form[download_url]"]').val(response.data.url);
+        $('#file-status').html('<i class="fas fa-check"></i>');
+        $("#attach-file").attr('disabled', 'disabled');
+      }
+    });
+  });
 </script>

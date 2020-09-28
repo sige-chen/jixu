@@ -17,5 +17,11 @@ return array(
             'exts' => ['pdf'],
             'require' => true,
         ),
+        'course-book-attachment' => array(
+            'file' => 'file',
+            'path' => 'course-book-attachments',
+            'exts' => ['pdf','doc','zip'],
+            'require' => true,
+        ),
     ),
 );

@@ -467,27 +467,10 @@ class CourseController extends WebController {
             return $this->render404();
         }
         $attachment->setAttributes($this->request->post('form'));
-        
-        $file = UploadFileHandler::handle('file')
-            ->setMaxSize(AdminConfiguration::get('course_book_attachment_max_size', 100*1024*1024))
-            ->setSavePath('courses/books/attachments/'.$attachment->id.'-'.time())
-            ->validate();
-        if ( !$file->hasFile() ) {
-            $this->flashSetByArray(['attachment'=>$attachment->toArray(),'error'=>'文件上传失败']);
-            return $this->redirect($this->request->referrer);
-        }
-        
-        if ( $file->hasError() ) {
-            $this->flashSetByArray(['attachment'=>$attachment->toArray(),'error'=>$file->errors]);
-            return $this->redirect($this->request->referrer);
-        }
-        
         if ( !$attachment->save() ) {
             $this->flashSetByArray(['attachment'=>$attachment->toArray(),'error'=>$attachment->getErrorSummary(true)]);
             return $this->redirect($this->request->referrer);
         }
-        $attachment->download_url = $file->saveAndGetDownloadUrl();
-        $attachment->save();
         $this->redirect(['course/book-attach-index','course'=>$attachment->course_id]);
     }
     
