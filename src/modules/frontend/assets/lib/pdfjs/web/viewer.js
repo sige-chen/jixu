@@ -3892,7 +3892,7 @@ const defaultOptions = {
     kind: OptionKind.WORKER
   },
   workerSrc: {
-    value: "../build/pdf.worker.js",
+    value: document.getElementById('opt-worker-path').value,
     kind: OptionKind.WORKER
   }
 };
