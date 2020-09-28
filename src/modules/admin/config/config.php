@@ -11,5 +11,11 @@ return array(
             'path' => 'course-video-thumbnails',
             'ext' => 'png',
         ),
+        'course-book-online' => array(
+            'file' => 'file',
+            'path' => 'course-book-online',
+            'exts' => ['pdf'],
+            'require' => true,
+        ),
     ),
 );

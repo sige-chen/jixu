@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use app\helpers\JxDictionary;
 use app\modules\frontend\assets\FrontendAsset;
+use yii\helpers\Url;
 /* @var \app\models\MdlCourses $course */
 /* @var string|null $online */
 /* @var \app\models\MdlCourseBookLinks[] $links */
@@ -15,7 +16,7 @@ use app\modules\frontend\assets\FrontendAsset;
   <div class="col-md-9">
     <h2 style="margin: 0;font-size: 24px;"><?php echo Html::encode($course->name); ?> 在线</h2>
     <p style="margin: 10px 0;color: #5b5b5b;"><?php echo Html::encode($course->name); ?> 在线版教材</p>
-    <a href="<?php echo $online; ?>">
+    <a href="<?php echo Url::to(['course/book-read', 'course'=>$course->id]); ?>">
       <button style="width: 150px;height: 34px;background-color: #ffe172;color: #ff6e6e;border: solid #ffbc00 1px;margin-top: 59px;">阅读</button>
     </a>
   </div>

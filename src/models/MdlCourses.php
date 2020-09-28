@@ -14,6 +14,7 @@ use app\helpers\JxDictionary;
  * @property int $is_suggested
  * @property int $short_desc
  * @property string $taobao_link
+ * @property string $online_book_url
  * 
  * @property-read int $videoCollectionCount
  * @property-read int $bookLinkCount
@@ -39,7 +40,7 @@ class MdlCourses extends \yii\db\ActiveRecord {
         return [
             [['name'], 'required'],
             [['published_at','description','status','is_suggested', 'short_desc','teacher_id','short_name'], 'safe'],
-            [['thumbnail_url','taobao_link'], 'string', 'max' => 255],
+            [['thumbnail_url','taobao_link','online_book_url'], 'string', 'max' => 255],
             
             [['name'], 'string', 'max' => 32],
             [['price','preferential_price'],'number','max'=>10000000,'min'=>0],
@@ -69,16 +70,6 @@ class MdlCourses extends \yii\db\ActiveRecord {
         return MdlCourseBookLinks::find()->where(['course_id'=>$this->id])->count();
     }
     
-    /**
-     * @return boolean
-     */
-    public function getHasOnlineBook() {
-        return file_exists(sprintf('%s/web/uploads/courses/books/online/%d.pdf',
-            \Yii::$app->basePath,
-            $this->id
-        ));
-    }
-    
     public function getBookAttachmentCount() {
         return MdlCourseBookAttachments::find()->where(['course_id'=>$this->id])->count();
     }
@@ -91,6 +82,14 @@ class MdlCourses extends \yii\db\ActiveRecord {
     }
     public static function getOnSellCount() {
         return self::find()->where(['status'=>JxDictionary::value('COURSE_STATUS', 'ONSELL')])->count();
+    }
+    
+    /**
+     * 获取是否存在在线版本的教材
+     * @return boolean
+     */
+    public function getHasOnlineBook() {
+        return 0 < strlen(trim($this->online_book_url));
     }
     
     /**

@@ -1,7 +1,7 @@
 <?php
 namespace app\modules\frontend\helpers;
 use yii\helpers\Url;
-
+use yii\web\Response;
 abstract class WebController extends \yii\web\Controller {
     /**
      * 设置页面标题
@@ -38,5 +38,30 @@ abstract class WebController extends \yii\web\Controller {
         if ( \Yii::$app->user->getIsGuest() ) {
             return $this->redirect(['login/index', ['backurl'=>Url::current()]]);
         }
+    }
+    
+    /**
+     * @param unknown $message
+     * @return \yii\web\Response
+     */
+    protected function ajaxError( $message ) {
+        $this->response->format = Response::FORMAT_RAW;
+        return json_encode([
+            'success' => false,
+            'message' => $message,
+            'data' => null,
+        ]);
+    }
+    
+    /**
+     * @param unknown $data
+     */
+    protected function ajaxSuccess( $data=null ) {
+        $this->response->format = Response::FORMAT_RAW;
+        return json_encode([
+            'success' => true,
+            'message' => '',
+            'data' => $data,
+        ]);
     }
 }

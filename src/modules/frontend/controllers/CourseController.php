@@ -15,11 +15,11 @@ use app\models\MdlCourseTests;
 use app\models\MdlCourseTestQuestions;
 use app\models\MdlCourseVideoCollections;
 use app\models\MdlCourseVideos;
-use yii\helpers\Url;
 use app\models\MdlCourseBookLinks;
 use app\models\MdlCourseBookAttachments;
 use app\models\MdlUserCourseCollections;
 use app\models\MdlCoursePurchaseTokens;
+use app\models\MdlCourseBookNotes;
 class CourseController extends WebController {
     /**
      * @var string
@@ -73,7 +73,7 @@ class CourseController extends WebController {
         
         $online = null;
         if ( $course->hasOnlineBook ) {
-            $online = Url::to("/uploads/courses/books/online/{$course->id}.pdf", true);
+            $online = $course->online_book_url;
         }
         $links = MdlCourseBookLinks::findAll(['course_id'=>$course->id]);
         $attachs = MdlCourseBookAttachments::findAll(['course_id'=>$course->id]);
@@ -83,6 +83,64 @@ class CourseController extends WebController {
             'links' => $links,
             'attachs' => $attachs,
         ]);
+    }
+    
+    /***
+     * 在线阅读
+     * @param unknown $course
+     */
+    public function actionBookRead( $course ) {
+        $this->layout = '@app/modules/frontend/views/layouts/course-big';
+        $course = MdlCourses::findOne($course);
+        if ( null === $course ) {
+            throw new HttpException(404);
+        }
+        
+        $this->setLayoutParam('course', $course);
+        $this->setLayoutParam('courseActiveItem', 'book');
+        $this->setPageTitle($course->name.'教材');
+        
+        return $this->render('book-read', [
+            'course' => $course,
+        ]);
+    }
+    
+    /**
+     * PDF阅读
+     * @param unknown $file
+     * @return string
+     */
+    public function actionBookPdfViewer($file) {
+        $this->layout = '@app/modules/frontend/views/layouts/blank';
+        return $this->render('book-pdf-viewer');
+    }
+    
+    /**
+     * 保存笔记
+     * @return string
+     */
+    public function actionBookNoteSave() {
+        $note = new MdlCourseBookNotes();
+        $note->setAttributes($this->request->post('data'));
+        $note->user_id = \Yii::$app->user->id;
+        if ( $note->save() ) {
+            return $this->ajaxSuccess($note->toArray());
+        } else {
+            return $this->ajaxError(implode(';', $note->getErrorSummary(true)));
+        }
+    }
+    
+    /**
+     * 加载教材笔记
+     * @param unknown $course
+     * @param unknown $page
+     */
+    public function actionBookNoteLoad( $course, $page ) {
+        $notes = MdlCourseBookNotes::find()->where([
+            'course_id' => $course,
+            'page' => $page,
+        ])->orderBy(['id'=>SORT_DESC])->asArray()->all();
+        return $this->ajaxSuccess($notes);
     }
     
     /**

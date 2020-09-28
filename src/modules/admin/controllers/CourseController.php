@@ -405,17 +405,14 @@ class CourseController extends WebController {
             return $this->render404();
         }
         
-        $file = UploadFileHandler::handle('file')
-            ->setMaxSizeByConfig('course_book_online_max_size', 1024*1024*1024)
-            ->setAllowedExtensions(['pdf'])
-            ->setSavePath(sprintf('courses/books/online/%d.pdf',$course->id))
-            ->validate();
-        if ( $file->hasError() ) {
+        $file = UploadFileHandler::setup($this->module->params['uploads']['course-book-online']);
+        if ( $file->validate()->hasError() ) {
             $this->flashSet('error', $file->errors);
             return $this->redirect($this->request->referrer);
         }
         
-        $file->saveAndGetDownloadUrl();
+        $course->online_book_url = $file->saveAndGetDownloadUrl();
+        $course->save();
         return $this->redirect(['course/index']);
     }
     
