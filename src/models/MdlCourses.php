@@ -24,6 +24,7 @@ use app\helpers\JxDictionary;
  * @property-read int $userPurchaseCount
  * @property-read int $isCollected
  * @property-read int $isPurchased
+ * @property-read int $testCount
  */
 class MdlCourses extends \yii\db\ActiveRecord {
     /**
@@ -82,6 +83,14 @@ class MdlCourses extends \yii\db\ActiveRecord {
     }
     public static function getOnSellCount() {
         return self::find()->where(['status'=>JxDictionary::value('COURSE_STATUS', 'ONSELL')])->count();
+    }
+    
+    /**
+     * 获取试卷数量
+     * @return number|string
+     */
+    public function getTestCount() {
+        return MdlCourseTests::find()->where(['course_id'=>$this->id])->count();
     }
     
     /**

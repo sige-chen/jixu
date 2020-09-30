@@ -26,6 +26,7 @@ use app\helpers\JxDictionary;
           <th scope="col">状态</th>
           <th scope="col">教材</th>
           <th scope="col">视频集</th>
+          <th scope="col">试题</th>
           <th scope="col">收藏人数</th>
           <th scope="col">购买人数</th>
           <th scope="col">上架时间</th>
@@ -66,6 +67,10 @@ use app\helpers\JxDictionary;
           <td>
             <a href="<?php echo Url::to(['course/video-collection-index','course'=>$course->id])?>"
             ><i class="fa fa-list"></i> <?php echo $course->videoCollectionCount; ?></a>
+          </td>
+          <td>
+            <a href="<?php echo Url::to(['course/test-index','course'=>$course->id])?>"
+            ><i class="fa fa-list"></i> <?php echo $course->testCount; ?></a>
           </td>
           <td><?php echo $course->userCollectionCount; ?></td>
           <td><?php echo $course->userPurchaseCount;?></td>

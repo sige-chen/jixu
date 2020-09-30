@@ -10,7 +10,7 @@ use Yii;
  * @property int $id
  * @property int|null $course_id
  * @property string|null $title
- * @property int $question_count
+ * @property int $questionCount
  */
 class MdlCourseTests extends \yii\db\ActiveRecord
 {
@@ -28,7 +28,7 @@ class MdlCourseTests extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['course_id','question_count'], 'integer'],
+            [['course_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -43,5 +43,13 @@ class MdlCourseTests extends \yii\db\ActiveRecord
             'course_id' => 'Course ID',
             'title' => 'Title',
         ];
+    }
+    
+    /**
+     * 获取试题数量
+     * @return number
+     */
+    public function getQuestionCount() {
+        return MdlCourseTestQuestions::find()->where(['test_id'=>$this->id])->count();
     }
 }

@@ -10,10 +10,11 @@ use app\models\MdlCourseBookLinks;
 use app\models\MdlCourseBookAttachments;
 use app\helpers\JxDictionary;
 use app\modules\admin\helpers\UploadFileHandler;
-use app\modules\admin\helpers\AdminConfiguration;
 use app\models\MdlAdminUsers;
 use app\models\MdlCoursePurchaseTokens;
 use yii\web\HttpException;
+use app\models\MdlCourseTests;
+use app\models\MdlCourseTestQuestions;
 /**
  * Default controller for the `admin` module
  */
@@ -514,6 +515,172 @@ class CourseController extends WebController {
         $token->status = JxDictionary::value('COURSE_TOKEN_STATUS', 'NEW');
         $token->token = md5(sprintf('%s-%s-%s-%s', $token->admin_id, $token->course_id, microtime(), uniqid()));
         $token->save();
+        return $this->redirect($this->request->referrer);
+    }
+    
+    /**
+     * 试卷列表
+     * @param unknown $course
+     * @return string
+     */
+    public function actionTestIndex( $course ) {
+        $this->activeMenuItem('course');
+        $course = MdlCourses::findOne($course);
+        if ( null === $course ) {
+            throw new HttpException(404);
+        }
+        $tests = MdlCourseTests::findAll(['course_id' => $course->id]);
+        return $this->render('test-index',['tests'=>$tests, 'course'=>$course]);
+    }
+    
+    /**
+     * 编辑试卷
+     * @param unknown $course
+     * @param unknown $id
+     */
+    public function actionTestEdit( $course, $id=null ) {
+        $this->activeMenuItem('course');
+        
+        $course = MdlCourses::findOne($course);
+        if ( null === $course ) {
+            throw new HttpException(404);
+        }
+        
+        $test = new MdlCourseTests();
+        $test->course_id = $course->id;
+        if ( null !== $id ) {
+            $test = MdlCourseTests::findOne($id);
+        }
+        return $this->render('test-edit',['test'=>$test, 'course'=>$course]);
+    }
+    
+    /**
+     * 保存试卷
+     * @return string
+     */
+    public function actionTestSave() {
+        $test = new MdlCourseTests();
+        $id = \Yii::$app->getRequest()->post('id');
+        if ( !empty($id) ) {
+            $test = MdlCourseTests::findOne($id);
+        }
+        if ( null === $test ) {
+            return $this->render404();
+        }
+        $test->setAttributes($this->request->post('form'));
+        if ( !$test->save() ) {
+            $this->flashSetByArray(['test'=>$test->toArray(),'error'=>$test->getErrorSummary(true)]);
+            return $this->redirect($this->request->referrer);
+        }
+        $this->redirect(['course/test-index','course'=>$test->course_id]);
+    }
+    
+    /**
+     * 试卷删除
+     * @param int $id
+     * @return string
+     */
+    public function actionTestDelete( $id ) {
+        $test = MdlCourseTests::findOne($id);
+        if ( null !== $test ) {
+            $test->delete();
+        }
+        return $this->redirect($this->request->referrer);
+    }
+    
+    /**
+     * 试题列表
+     * @param unknown $test
+     * @return string   
+     */
+    public function actionTestQuestionIndex( $test ) {
+        $this->activeMenuItem('course');
+        $test = MdlCourseTests::findOne($test);
+        if ( null === $test ) {
+            throw new HttpException(404);
+        }
+        
+        $course = MdlCourses::findOne($test->course_id);
+        if ( null === $course ) {
+            throw new HttpException(404);
+        }
+        
+        $questions = MdlCourseTestQuestions::find()->where(['test_id'=>$test->id])->orderBy(['index'=>SORT_ASC])->all();
+        return $this->render('test-question-index', [
+            'test'=>$test,
+            'questions'=>$questions,
+            'course'=>$course
+        ]);
+    }
+    
+    /**
+     * 试题编辑
+     * @return string
+     */
+    public function actionTestQuestionEdit( $test, $id=null ) {
+        $this->activeMenuItem('course');
+        $test = MdlCourseTests::findOne($test);
+        if ( null === $test ) {
+            throw new HttpException(404);
+        }
+        
+        $course = MdlCourses::findOne($test->course_id);
+        if ( null === $course ) {
+            throw new HttpException(404);
+        }
+        
+        $question = new MdlCourseTestQuestions();
+        $question->index = $test->questionCount + 1;
+        if ( null !== $id ) {
+            $question = MdlCourseTestQuestions::findOne($id);
+        }
+        if ( null === $question ) {
+            throw new HttpException(404);
+        }
+        return $this->render('test-question-edit',[
+            'test'=>$test,
+            'course'=>$course,
+            'question'=>$question,
+        ]);
+    }
+    
+    /**
+     * 试题保存
+     * @return string
+     */
+    public function actionTestQuestionSave() {
+        $question = new MdlCourseTestQuestions();
+        $id = \Yii::$app->getRequest()->post('id');
+        if ( !empty($id) ) {
+            $question = MdlCourseTestQuestions::findOne($id);
+        }
+        if ( null === $question ) {
+            return $this->render404();
+        }
+        
+        $options = array();
+        foreach ( $this->request->post('options') as $item ) {
+            $options[$item['key']] = $item['value'];
+        }
+        $question->options = json_encode($options);
+        $question->setAttributes($this->request->post('form'));
+        if ( !$question->save() ) {
+            $this->flashSetByArray(['question'=>$question->toArray(),'error'=>$question->getErrorSummary(true)]);
+            return $this->redirect($this->request->referrer);
+        }
+        $this->redirect(['course/test-question-index','test'=>$question->test_id]);
+    }
+    
+    /**
+     * 试题删除
+     * @param int $id
+     * @return string
+     */
+    public function actionTestQuestionDelete( $id ) {
+        $question = MdlCourseTestQuestions::findOne($id);
+        if ( null !== $question ) {
+            $question->delete();
+        }
         return $this->redirect($this->request->referrer);
     }
 }
