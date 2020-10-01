@@ -631,6 +631,7 @@ class CourseController extends WebController {
         
         $question = new MdlCourseTestQuestions();
         $question->index = $test->questionCount + 1;
+        $question->options = '[]';
         if ( null !== $id ) {
             $question = MdlCourseTestQuestions::findOne($id);
         }

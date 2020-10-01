@@ -1,7 +1,6 @@
 <?php
 namespace app\modules\frontend\widgets;
-use app\models\MdlBanners;
-
+use app\models\MdlAdvertisements;
 class Banner extends \yii\bootstrap\Widget {
     /**
      * @var string
@@ -13,7 +12,7 @@ class Banner extends \yii\bootstrap\Widget {
      * @see \yii\base\Widget::run()
      */
     public function run() {
-        $banner = MdlBanners::findOne(['target'=>$this->target]);
+        $banner = MdlAdvertisements::findOne(['position'=>$this->target]);
         return "<div class=\"ban\"><img src=\"{$banner->img_url}\" alt=\"\"></div>";
     }
 }

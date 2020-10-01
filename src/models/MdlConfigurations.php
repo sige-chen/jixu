@@ -29,8 +29,8 @@ class MdlConfigurations extends \yii\db\ActiveRecord
     {
         return [
             [['key'], 'required'],
-            [['key'], 'string', 'max' => 64],
-            [['value'], 'string', 'max' => 1024],
+            [['key'], 'string', 'max' => 63],
+            [['value'], 'string', 'max' => 1023],
             [['note'], 'string', 'max' => 255],
         ];
     }

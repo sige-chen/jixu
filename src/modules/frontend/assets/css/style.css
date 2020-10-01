@@ -10,7 +10,7 @@
 .row-ind1 {background-color: #fff;}
 .ul-pic1 {overflow: hidden;margin: 0 -12px;}
 .ul-pic1 li {float: left;width: 20%;}
-.ul-pic1 .item {display: block;height: 86px;margin: 30px 12px;padding: 17px 22px;background-repeat: no-repeat;background-position: right center;-webkit-background-size: auto 120px; background-size: auto 120px;font-size: 14px;line-height: 18px;border-radius: 8px;}
+.ul-pic1 .item {display: block;height: 100px;margin: 30px 12px;padding: 2px 22px;background-repeat: no-repeat;background-position: right center;-webkit-background-size: auto 120px; background-size: auto 120px;font-size: 14px;line-height: 18px;border-radius: 8px;}
 .ul-pic1 h4 {float: left;position: relative;font-size: 24px;font-weight: normal;line-height: 1;margin-bottom: 20px;}
 .ul-pic1 h4:after {content: '';position: absolute;left: 0;bottom: -6px;width: 20px;height: 4px;border-radius: 5px;background-color: #b0393d;}
 .ul-pic1 p {clear: both;}

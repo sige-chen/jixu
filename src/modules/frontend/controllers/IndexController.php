@@ -6,6 +6,8 @@ use app\models\MdlBanners;
 use app\models\MdlCourses;
 use app\models\MdlAdminUsers;
 use app\modules\frontend\helpers\WebController;
+use app\models\MdlCompanyPartners;
+use app\models\MdlAdvertisements;
 
 class IndexController extends WebController {
     /**
@@ -30,7 +32,7 @@ class IndexController extends WebController {
         $notis = MdlArticles::find()->where(['type'=>JxDictionary::value('ARTICLE_TYPE', 'NOTI')])->limit(5)->orderBy(['id'=>SORT_DESC])->all();
         $viewData['notis'] = $notis;
         
-        $banners = MdlBanners::find()->where(['target'=>'frontend_index'])->all();
+        $banners = MdlAdvertisements::find()->where(['position'=>JxDictionary::value('AD_POSITION', 'INDEX_BANNER')])->all();
         $viewData['banners'] = $banners;
         
         $courses = MdlCourses::find()->where(['is_suggested'=>1])->limit(4)->all();
@@ -44,6 +46,13 @@ class IndexController extends WebController {
         
         $articleAboutNewsList = MdlArticles::find()->where(['type'=>JxDictionary::value('ARTICLE_TYPE', 'ABOUT_NEWS')])->orderBy(['date'=>SORT_DESC])->limit(8)->all();
         $viewData['articleAboutNewsList'] = $articleAboutNewsList;
+        
+        $partComs = MdlCompanyPartners::findAll(['type'=>JxDictionary::value('COMPANY_PART_TYPE', 'COMPANY')]);
+        $viewData['partComs'] = $partComs;
+        
+        $partSchools = MdlCompanyPartners::findAll(['type'=>JxDictionary::value('COMPANY_PART_TYPE', 'COMPANY')]);
+        $viewData['partSchools'] = $partSchools;
+        
         return $this->render('index', $viewData);
     }
 }

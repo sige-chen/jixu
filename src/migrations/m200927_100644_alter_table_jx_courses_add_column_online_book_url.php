@@ -3,7 +3,7 @@ use yii\db\Migration;
 /**
  * Class m200927_100644_alter_table_jx_courses_add_column_online_book_path
  */
-class m200927_100644_alter_table_jx_courses_add_column_online_book_path extends Migration {
+class m200927_100644_alter_table_jx_courses_add_column_online_book_url extends Migration {
     /**
      * {@inheritDoc}
      * @see \yii\db\Migration::up()
@@ -17,6 +17,6 @@ class m200927_100644_alter_table_jx_courses_add_column_online_book_path extends 
      * @see \yii\db\Migration::down()
      */
     public function down() {
-        $this->dropColumn('jx_courses', 'online_book_path');
+        $this->dropColumn('jx_courses', 'online_book_url');
     }
 }
