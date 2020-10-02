@@ -3,6 +3,20 @@ namespace app\modules\admin\helpers;
 use yii\web\Controller;
 use yii\web\Response;
 abstract class WebController extends Controller {
+    /**
+     * @var string
+     */
+    public $activeMenuItem = null;
+    
+    /**
+     * {@inheritDoc}
+     * @see \yii\web\Controller::beforeAction()
+     */
+    public function beforeAction($action) {
+        $this->activeMenuItem($this->activeMenuItem);
+        return parent::beforeAction($action);
+    }
+    
     public function render404() {
         echo "404";
     }

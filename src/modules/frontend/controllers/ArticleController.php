@@ -2,6 +2,7 @@
 namespace app\modules\frontend\controllers;
 use app\modules\frontend\helpers\WebController;
 use app\models\MdlArticles;
+use yii\web\HttpException;
 class ArticleController extends WebController {
     /**
      * @var string
@@ -18,5 +19,19 @@ class ArticleController extends WebController {
         $query = MdlArticles::find()->where(['type'=>$cat])->orderBy(['id'=>SORT_DESC])->limit($size)->offset(($page-1)*$size);
         $articles = $query->all();
         return $this->render('index',['articles'=>$articles, 'query'=>$query]);
+    }
+    
+    /**
+     * 阅读文章
+     * @param unknown $id
+     */
+    public function actionDetail( $id ) {
+        $article = MdlArticles::findOne($id);
+        if ( null === $article ) {
+            throw new HttpException(404);
+        }
+        
+        $this->setPageTitle($article->title);
+        return $this->render('detail',['article'=>$article]);
     }
 }

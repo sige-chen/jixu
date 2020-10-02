@@ -77,6 +77,18 @@ $bundle = AdminAsset::register($this);
               </a>
             </li>
             <li class="nav-item">
+              <a href="<?php echo Url::to(['article/index']); ?>" class="nav-link <?php if ('article'==$activeMenuItem): ?>active<?php endif;?>">
+                <i class="nav-icon fas fa-newspaper"></i>
+                <p>文章管理</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?php echo Url::to(['advertisement/index']); ?>" class="nav-link <?php if ('advertisement'==$activeMenuItem): ?>active<?php endif;?>">
+                <i class="nav-icon fas fa-ad"></i>
+                <p>广告管理</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="<?php echo Url::to(['employee/index']); ?>" class="nav-link <?php if ('employee'==$activeMenuItem): ?>active<?php endif;?>">
                 <i class="nav-icon fas fa-cog"></i>
                 <p>职员管理</p>

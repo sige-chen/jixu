@@ -31,7 +31,9 @@ class MdlArticles extends \yii\db\ActiveRecord
     {
         return [
             [['type', 'status'], 'integer'],
-            [['title', 'summary', 'content'], 'string', 'max' => 255],
+            [['title', 'summary', 'thumbnail_url'], 'string', 'max' => 255],
+            
+            [['content'], 'safe'],
         ];
     }
 
@@ -45,7 +47,7 @@ class MdlArticles extends \yii\db\ActiveRecord
             'type' => 'Type',
             'title' => 'Title',
             'summary' => 'Summary',
-            'content' => 'Content',
+            'content' => '内容',
             'status' => 'Status',
         ];
     }

@@ -4,11 +4,14 @@ use app\helpers\JxConfiguration;
 use yii\helpers\Html;
 use app\helpers\JxDictionary;
 use app\modules\frontend\assets\FrontendAsset;
+use app\models\MdlPage;
 /* @var $content string */
 /* @var \yii\web\View $this */
 /* @var string $content */ 
 $user = Yii::$app->user;
 $bundle = FrontendAsset::register($this);
+
+$navPages = MdlPage::findAll(['name'=>JxConfiguration::get('NAV_PAGES')]);
 ?>
 <?php $this->beginPage(); ?>
 <!DOCTYPE html>
@@ -56,18 +59,19 @@ a {color:#6b6b6b;}
         <li class="">
           <a href="<?php echo Url::to(['article/category','cat'=>JxDictionary::value('ARTICLE_TYPE','ABOUT_NEWS')]); ?>"​>企业动态</a>
         </li>
+        <?php foreach ( $navPages as $navPage ) : ?>
         <li class="">
-          <a href="<?php echo Url::to(['page/show','name'=>'mqgj']);?>"​>名企共建</a>
+          <a href="<?php echo Url::to(['page/show','name'=>$navPage->name]);?>"​>
+            <?php echo Html::encode($navPage->title); ?>
+          </a>
         </li>
-        <li class="">
-          <a href="<?php echo Url::to(['page/show','name'=>'ppgs']);?>"​>品牌故事</a>
-        </li>
+        <?php endforeach; ?>
       </ul>
     </div>
   </div>
 <?= $content ?>
 <!-- footer -->
-    <?php if (Yii::$app->user->isGuest): ?>
+    <?php if (Yii::$app->user->isGuest && 'ON' === JxConfiguration::get('ENABLE_FOOTER_AD', 'ON')): ?>
     <div class="float-ft" style="background-image: url(<?php echo FrontendAsset::getResUrl('images/ft-adbg.jpg'); ?>);">
       <div class="wp">
         <div class="ft-form">
@@ -206,7 +210,7 @@ a {color:#6b6b6b;}
   
 <?php $this->endBody(); ?>
 <script type="text/javascript">
-<?php if ( Yii::$app->user->isGuest ): ?>
+<?php if ( Yii::$app->user->isGuest && 'ON' === JxConfiguration::get('ENABLE_POPUP_AD','ON') ): ?>
 /**
  * 咨询弹框
  * */

@@ -2,7 +2,6 @@
 namespace app\modules\frontend\controllers;
 use app\models\MdlArticles;
 use app\helpers\JxDictionary;
-use app\models\MdlBanners;
 use app\models\MdlCourses;
 use app\models\MdlAdminUsers;
 use app\modules\frontend\helpers\WebController;
@@ -52,7 +51,6 @@ class IndexController extends WebController {
         
         $partSchools = MdlCompanyPartners::findAll(['type'=>JxDictionary::value('COMPANY_PART_TYPE', 'COMPANY')]);
         $viewData['partSchools'] = $partSchools;
-        
         return $this->render('index', $viewData);
     }
 }

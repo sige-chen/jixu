@@ -14,12 +14,13 @@ use app\modules\frontend\assets\FrontendAsset;
 <div class="banner">
   <?php foreach ( $banners as $banner ) : ?>
   <div class="item" style="background-image: url(<?php echo $banner->image_url;?>);">
-    <a href="<?php echo $banner->link; ?>"​></a>
+    <a href="<?php echo $banner->target_url; ?>"​></a>
   </div>
   <?php endforeach; ?>
 </div>
 <?php endif; ?>
 
+<?php if ( !empty($notis) ) :?>
 <div class="notice" id="notice">
   <div class="container">
     <div class="notice_list">
@@ -43,7 +44,8 @@ use app\modules\frontend\assets\FrontendAsset;
     </div>
   </div>
 </div>
-  
+<?php endif; ?>
+
 <div class="main-ind">
   <div class="row-ind1">
     <div class="wp">

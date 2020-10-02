@@ -23,5 +23,17 @@ return array(
             'exts' => ['pdf','doc','zip'],
             'require' => true,
         ),
+        'advertisement-image' => array(
+            'file' => 'file',
+            'path' => 'advertisement-images',
+            'exts' => ['png','jpg'],
+            'require' => true,
+        ),
+        'article-thumbnail' => array(
+            'file' => 'file',
+            'path' => 'article-thumbnails',
+            'exts' => ['png','jpg'],
+            'require' => true,
+        ),
     ),
 );
