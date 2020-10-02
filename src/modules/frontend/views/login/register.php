@@ -8,14 +8,16 @@ use yii\base\Widget;
 <div class="container">
   <div class="row" style="padding:50px 0;">
     <div class="col-md-6">
+      <?php if ( null !== $ad ) : ?>
       <img src="<?php echo $ad->image_url; ?>" style="width:100%;">
+      <?php endif; ?>
     </div>
     <div class="col-md-1"></div>
     <div class="col-md-4">
       <div style="padding: 50px 32px 100px 32px;border: solid #d8d8d8 1px;">
         <form action="<?php echo Url::to(['login/save-user']);?>" method="post">
           <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->getCsrfToken();?>">
-          <a href="<?php echo Url::to(['login/index']); ?>" style="float: right;line-height: 42px;color: #7d7d7d;">返回登录</a>
+          <a href="<?php echo Url::to(['login/index','backurl'=>'/']); ?>" style="float: right;line-height: 42px;color: #7d7d7d;">返回登录</a>
           <h1>用户注册</h1>
           <?php echo Alert::widget(); ?>
           <br>

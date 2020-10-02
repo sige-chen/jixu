@@ -24,7 +24,7 @@ class ArticleController extends WebController {
      * @return string
      */
     public function actionIndex() {
-        $atricles = MdlArticles::find()->all();
+        $atricles = MdlArticles::find()->orderBy(['id'=>SORT_DESC])->all();
         return $this->render('index',['atricles'=>$atricles]);
     }
     
@@ -54,6 +54,7 @@ class ArticleController extends WebController {
         }
         
         $article->setAttributes($this->request->post('form'));
+        $article->date = date('Y-m-d');
         if ( !$article->save() ) {
             return $this->goBackWithError($article->getErrorSummary(true));
         }

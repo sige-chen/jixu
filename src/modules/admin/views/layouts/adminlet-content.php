@@ -89,9 +89,21 @@ $bundle = AdminAsset::register($this);
               </a>
             </li>
             <li class="nav-item">
+              <a href="<?php echo Url::to(['inquiry/index']); ?>" class="nav-link <?php if ('inquiry'==$activeMenuItem): ?>active<?php endif;?>">
+                <i class="nav-icon fas fa-envelope-open-text"></i>
+                <p>咨询管理</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="<?php echo Url::to(['employee/index']); ?>" class="nav-link <?php if ('employee'==$activeMenuItem): ?>active<?php endif;?>">
-                <i class="nav-icon fas fa-cog"></i>
+                <i class="nav-icon fas fa-users"></i>
                 <p>职员管理</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?php echo Url::to(['partner/index']); ?>" class="nav-link <?php if ('partner'==$activeMenuItem): ?>active<?php endif;?>">
+                <i class="nav-icon fas fa-handshake"></i>
+                <p>合作方管理</p>
               </a>
             </li>
             <li class="nav-item">

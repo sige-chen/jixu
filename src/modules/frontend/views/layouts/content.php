@@ -71,19 +71,22 @@ a {color:#6b6b6b;}
   </div>
 <?= $content ?>
 <!-- footer -->
-    <?php if (Yii::$app->user->isGuest && 'ON' === JxConfiguration::get('ENABLE_FOOTER_AD', 'ON')): ?>
-    <div class="float-ft" style="background-image: url(<?php echo FrontendAsset::getResUrl('images/ft-adbg.jpg'); ?>);">
-      <div class="wp">
-        <div class="ft-form">
-          <span class="close"></span>
-          <input class="inp" name="username" type="text" placeholder="如何称呼您">
-          <input class="inp" name="phone" type="text" placeholder="您的手机">
-          <input class="inp" name="qq" type="text" placeholder="您的QQ">
+<?php if (Yii::$app->user->isGuest && 'ON' === JxConfiguration::get('ENABLE_FOOTER_AD', 'ON')): ?>
+<div class="float-ft" style="background-image: url(<?php echo FrontendAsset::getResUrl('images/ft-adbg.jpg'); ?>);">
+  <div class="wp">
+    <div class="ft-form">
+      <form id="w0" action="<?php echo Url::to(['inquiry/save']); ?>" method="post" role="form">
+        <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->getCsrfToken();?>">
+          <span class="close" id="btn-footer-ad-close"></span>
+          <input class="inp" name="form[name]" type="text" placeholder="如何称呼您">
+          <input class="inp" name="form[phone]" type="text" placeholder="您的手机">
+          <input class="inp" name="form[qq]" type="text" placeholder="您的QQ">
           <input class="btn" id="course_submit" type="submit" value="免费获取课程">
-        </div>
-      </div>
+        </form>
     </div>
-    <?php endif;?>
+  </div>
+</div>
+<?php endif;?>
     
     <div class="footer">
       <div class="wp">
@@ -113,100 +116,78 @@ a {color:#6b6b6b;}
           </div>
           <div class="txt">
             <span>技续</span> |
-            <span><?php echo JxConfiguration::get('website_beian');?></span> |
-            <span> 咨询热线：<?php echo JxConfiguration::get('business_tel'); ?></span> |
-            <span> 地址：<?php echo Html::encode(JxConfiguration::get('company_address')); ?></span> |
-            <span> 版权所有：<?php echo Html::encode(JxConfiguration::get('copy_right')); ?></span>
+            <span><?php echo JxConfiguration::get('WEBSITE_BEIAN');?></span> |
+            <span> 咨询热线：<?php echo JxConfiguration::get('COMPANY_TEL'); ?></span> |
+            <span> 地址：<?php echo Html::encode(JxConfiguration::get('COMPANY_ADDRESS')); ?></span> |
+            <span> 版权所有：<?php echo Html::encode(JxConfiguration::get('COPY_RIGHT')); ?></span>
           </div>
         </div>
       </div>
     </div>
     
-    <!-- 表单弹出开始-->
-    <div class="all_filter_page" id="all_filter_page" style="display:none;"></div>
-    <div class="form-div" id="contact_us_div_unique" style="display:none;">
-      <form id="w0" action="/site/save" method="post" role="form">
-        <div id="reg-form">
-          <table>
-            <tr>
-              <td style="text-align: left">姓名:</td>
-              <td>
-                <input 
-                  name="username" 
-                  type="text" 
-                  id="username" 
-                  easyform="length:2-16;"
-                  message="用户名必须为2-16位中/英文字符或数字" 
-                  easytip="disappear:lost-focus;theme:blue;"
-                  ajax-message="用户名已存在!"
-                >
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align: left">电话:</td>
-              <td>
-                <input 
-                  name="phone" 
-                  type="text" 
-                  id="phone" 
-                  easyform="length:6-16;rule;"
-                  message="手机号码格式错误" 
-                  easytip="disappear:lost-focus;theme:blue;"
-                >
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align: left">QQ:</td>
-              <td>
-                <input 
-                  name="qq" 
-                  type="text" 
-                  id="qq" 
-                  easyform="length:6-16;num;" 
-                  message="qq格式错误"
-                  easytip="disappear:lost-focus;theme:blue;"
-                >
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align: left">性别:</td>
-              <td style="text-align: left">
-                <input type="radio" class="sex" name="sex" checked value="1" style="margin:0 9px 0 22px">男
-                <input type="radio" name="sex" value="2" style="margin:0 12px">女
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align: left">留言:</td>
-              <td><textarea id="text_area" name="remark"></textarea></td>
-            </tr>
-          </table>
-          <div class="buttons">
-            <input value="提 交" type="submit" style="margin-top:20px;">
-          </div>
-          <br class="clear">
-        </div>
-      </form>
+<!-- 表单弹出开始-->
+<div class="all_filter_page" id="all_filter_page" style="display:none;"></div>
+<div class="form-div" id="contact_us_div_unique" style="display:none;">
+  <form id="w0" action="<?php echo Url::to(['inquiry/save']); ?>" method="post" role="form">
+    <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->getCsrfToken();?>">
+    <div id="reg-form">
+      <table>
+        <tr>
+          <td style="text-align: left">姓名:</td>
+          <td>
+            <input name="form[name]"  type="text"  id="username" easyform="length:2-16;" message="用户名必须为2-16位中/英文字符或数字" easytip="disappear:lost-focus;theme:blue;">
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left">电话:</td>
+          <td>
+            <input  name="form[phone]" type="text" id="phone" easyform="length:6-16;rule;" message="手机号码格式错误" easytip="disappear:lost-focus;theme:blue;">
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left">QQ:</td>
+          <td>
+            <input name="form[qq]" type="text" id="qq" easyform="length:6-16;num;" message="qq格式错误" easytip="disappear:lost-focus;theme:blue;">
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left">性别:</td>
+          <td style="text-align: left">
+            <input type="radio" class="sex" name="form[sex]" checked value="m" style="margin:0 9px 0 22px">男
+            <input type="radio" name="form[sex]" value="f" style="margin:0 12px">女
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: left">留言:</td>
+          <td><textarea id="text_area" name="form[message]"></textarea></td>
+        </tr>
+      </table>
+      <div class="buttons">
+        <input value="提 交" type="submit" style="margin-top:20px;">
+      </div>
+      <br class="clear">
     </div>
+  </form>
+</div>
     
-    <!-- 咨询弹窗 -->
-    <div class="pop-zixun">
-      <div class="cont">
-        <span class="close"></span>
-        <div class="tit">
-          <span class="icon"></span>您的专属顾问-在线咨询
-        </div>
-        <div class="bd">
-        <h2>申请免费试听</h2>
-        <a class="btn" href="#"​ style="padding:0;">立即申请</a>
-      </div>
-      <div style="height: 15px;"></div>
-      <div class="link">
-        <a class="s1" href="#"​>QQ咨询</a>
-        <a class="s2" href="#"​>在线咨询</a>
-      </div>
+<!-- 咨询弹窗 -->
+<div class="pop-zixun">
+  <div class="cont">
+    <span class="close"></span>
+    <div class="tit">
+      <span class="icon"></span>您的专属顾问-在线咨询
+    </div>
+    <div class="bd">
+      <h2>申请免费试听</h2>
+      <a id="btn-apply" class="btn" href="#"​ style="padding:0;">立即申请</a>
+    </div>
+    <div style="height: 15px;"></div>
+    <div class="link">
+      <a class="s1" href="http://wpa.qq.com/msgrd?v=3&uin=<?php echo JxConfiguration::get('SERVICE_QQ');?>&site=qq&menu=yes"​ target="_blank">QQ咨询</a>
+      <a class="s2" href="http://wpa.qq.com/msgrd?v=3&uin=<?php echo JxConfiguration::get('SERVICE_QQ');?>&site=qq&menu=yes"​ target="_blank">在线咨询</a>
     </div>
   </div>
-  
+</div>
   
 <?php $this->endBody(); ?>
 <script type="text/javascript">
@@ -229,6 +210,19 @@ a {color:#6b6b6b;}
   });
 })();
 <?php endif; ?>
+$(document).ready(function() {
+  $('#btn-apply').click(function(){
+    $("#all_filter_page").show();
+    $("#contact_us_div_unique").show();
+    disableScroll();
+  });
+
+  $('#btn-footer-ad-close').click(function() {
+    $('.float-ft').hide();
+  });
+});
+
+
 
 
 

@@ -12,9 +12,9 @@ class m200930_033405_create_table_jx_users extends Migration {
         $this->createTable('jx_users', [
             'id' => $this->primaryKey()->comment('ID'),
             'email' => $this->string(63)->notNull()->comment('邮箱'),
-            'password' => $this->string(31)->notNull()->comment('密码'),
+            'password' => $this->string(32)->notNull()->comment('密码'),
             'photo_url' => $this->string(255)->notNull()->comment('头像'),
-            'nickname' => $this->string(31)->notNull()->comment('昵称'),
+            'nickname' => $this->string(32)->notNull()->comment('昵称'),
         ]);
         $this->addCommentOnTable('jx_users', '用户表');
     }

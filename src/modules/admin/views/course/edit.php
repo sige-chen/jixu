@@ -3,6 +3,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use app\widgets\Alert;
 use app\modules\admin\assets\AdminAsset;
+use app\modules\admin\widgets\FormFileUploadField;
 /* @var \app\models\MdlCourses $course */
 /* @var \app\models\MdlAdminUsers[] $teachers */
 ?>
@@ -38,16 +39,9 @@ use app\modules\admin\assets\AdminAsset;
       
       <div class="form-group">
         <label>封面图片</label>
-        <img 
-          id="img-thumbnail"
-          <?php if ( $course->getIsNewRecord() ): ?>
-          src="<?php echo AdminAsset::getResUrl('img/course-default-thumbnail.png'); ?>"
-          <?php else : ?>
-          src="<?php echo $course->thumbnail_url;?>" 
-          <?php endif; ?>
-          onclick="onThumbnailClicked()"
-        >
-        <input type="file" class="form-control" name="thumbnail" id="file-thumbnail" onchange="onThumbnailFileChanged()">
+        <img id="img-thumbnail" src="<?php echo $course->thumbnail_url;?>">
+        <input type="hidden" name="form[thumbnail_url]" value="<?php echo $course->thumbnail_url;?>">
+        <?php echo FormFileUploadField::widget(['type' => 'course-thumbnail','saveUrlTo' => '[name="form[thumbnail_url]"]','preViewImage' => '#img-thumbnail',]);?>
       </div>
       
       <div class="form-group">
@@ -95,22 +89,6 @@ use app\modules\admin\assets\AdminAsset;
 <link rel="stylesheet" href="<?php echo AdminAsset::getResUrl('plugins/summernote/summernote-bs4.css'); ?>">
 <script src="<?php echo AdminAsset::getResUrl('plugins/summernote/summernote-bs4.min.js'); ?>"></script>
 <script>
-/** 点击封面图片后触发文件选择 */
-function onThumbnailClicked() {
-  $('#file-thumbnail').click();
-}
-
-/** 封面图片选中后 */
-function onThumbnailFileChanged() {
-  let fileInput = document.getElementById('file-thumbnail');
-  let file = fileInput.files[0];
-  let reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = function(event) {
-    $('#img-thumbnail').attr('src', this.result);
-  }
-}
-
 $(function () {
   $('#txt-description').summernote()
 })

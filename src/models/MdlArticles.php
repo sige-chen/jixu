@@ -33,7 +33,7 @@ class MdlArticles extends \yii\db\ActiveRecord
             [['type', 'status'], 'integer'],
             [['title', 'summary', 'thumbnail_url'], 'string', 'max' => 255],
             
-            [['content'], 'safe'],
+            [['content','date'], 'safe'],
         ];
     }
 

@@ -11,6 +11,7 @@ use yii\helpers\Url;
   <div class="card-header">
     <h3 class="card-title">页面列表</h3>
     <div class="card-tools">
+      &nbsp;
       <a href="<?php echo Url::to(['page/edit'])?>" class="btn btn-tool" title="新建页面">
         <i class="fas fa-plus"></i>
       </a>

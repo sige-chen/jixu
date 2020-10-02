@@ -40,16 +40,16 @@ class IndexController extends WebController {
         $teachers = MdlAdminUsers::find()->where(['type'=>JxDictionary::value('ADMIN_USER_TYPE', 'TEACHER')])->limit(6)->all();
         $viewData['teachers'] = $teachers;
         
-        $articleAboutComList = MdlArticles::find()->where(['type'=>JxDictionary::value('ARTICLE_TYPE', 'ABOUT_COM')])->orderBy(['date'=>SORT_DESC])->limit(7)->all();
+        $articleAboutComList = MdlArticles::find()->where(['type'=>JxDictionary::value('ARTICLE_TYPE', 'ABOUT_COM')])->orderBy(['date'=>SORT_DESC,'id'=>SORT_DESC])->limit(7)->all();
         $viewData['articleAboutComList'] = $articleAboutComList;
         
-        $articleAboutNewsList = MdlArticles::find()->where(['type'=>JxDictionary::value('ARTICLE_TYPE', 'ABOUT_NEWS')])->orderBy(['date'=>SORT_DESC])->limit(8)->all();
+        $articleAboutNewsList = MdlArticles::find()->where(['type'=>JxDictionary::value('ARTICLE_TYPE', 'ABOUT_NEWS')])->orderBy(['date'=>SORT_DESC,'id'=>SORT_DESC])->limit(8)->all();
         $viewData['articleAboutNewsList'] = $articleAboutNewsList;
         
         $partComs = MdlCompanyPartners::findAll(['type'=>JxDictionary::value('COMPANY_PART_TYPE', 'COMPANY')]);
         $viewData['partComs'] = $partComs;
         
-        $partSchools = MdlCompanyPartners::findAll(['type'=>JxDictionary::value('COMPANY_PART_TYPE', 'COMPANY')]);
+        $partSchools = MdlCompanyPartners::findAll(['type'=>JxDictionary::value('COMPANY_PART_TYPE', 'SCHOOL')]);
         $viewData['partSchools'] = $partSchools;
         return $this->render('index', $viewData);
     }

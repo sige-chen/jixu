@@ -15,6 +15,7 @@ use app\models\MdlCoursePurchaseTokens;
 use yii\web\HttpException;
 use app\models\MdlCourseTests;
 use app\models\MdlCourseTestQuestions;
+use app\modules\admin\assets\AdminAsset;
 /**
  * Default controller for the `admin` module
  */
@@ -51,6 +52,7 @@ class CourseController extends WebController {
         $this->activeMenuItem('course');
         
         $course = new MdlCourses();
+        $course->thumbnail_url = AdminAsset::getResUrl('img/course-default-thumbnail.png');
         if ( !empty($id) ) {
             $course = MdlCourses::findOne($id);
         }

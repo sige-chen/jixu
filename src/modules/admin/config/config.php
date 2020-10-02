@@ -1,6 +1,12 @@
 <?php
 return array(
     'uploads' => array(
+        'course-thumbnail' => array(
+            'file' => 'file',
+            'path' => 'course-thumbnails',
+            'exts' => ['png','jpg'],
+            'require' => true,
+        ),
         'course-video' => array(
             'file' => 'video',
             'path' => 'course-videos',
@@ -32,6 +38,12 @@ return array(
         'article-thumbnail' => array(
             'file' => 'file',
             'path' => 'article-thumbnails',
+            'exts' => ['png','jpg'],
+            'require' => true,
+        ),
+        'partner-logo' => array(
+            'file' => 'file',
+            'path' => 'partner-logos',
             'exts' => ['png','jpg'],
             'require' => true,
         ),

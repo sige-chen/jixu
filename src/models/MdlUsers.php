@@ -26,7 +26,7 @@ class MdlUsers extends \yii\db\ActiveRecord implements IdentityInterface {
             ['email','unique','message'=>'邮箱已被注册'],
             [['email','password','photo_url','nickname'],'required'],
             [['email'],'string','max'=>63],
-            [['password','nickname'],'string','max'=>31],
+            [['password','nickname'],'string','max'=>32],
             [['photo_url'],'string','max'=>255],
         ];
     }

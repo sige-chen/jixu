@@ -9,6 +9,7 @@ use app\modules\frontend\assets\FrontendAsset;
 /* @var array $teachers */
 /* @var array $partComs */
 /* @var array $partSchools */
+/* @var array $articleAboutNewsList */
 ?>
 <?php if ( !empty($banners) ) : ?>
 <div class="banner">
@@ -89,7 +90,7 @@ use app\modules\frontend\assets\FrontendAsset;
   <div class="row-ind2">
     <div class="wp">
       <div class="row">
-        <?php if ( !empty($course) ) : ?>
+        <?php if ( !empty($courses) ) : ?>
         <h3 class="tit-h3" style="text-align: center;">我们的课程不特别，<span>但很优秀</span></h3>
         <div>
           <?php foreach ( $courses as $course ) :?>
@@ -131,14 +132,14 @@ use app\modules\frontend\assets\FrontendAsset;
             <h3 class="tit-h3"><span>了解<?php echo JxConfiguration::get('COMPANY_SHORT_NAME', ''); ?></span></h3>
             <div class="hot">
               <?php $articleAboutCom = array_shift($articleAboutComList); ?>
-              <div class="news-pic">
+              <div class="news-pic" style="height: 172px;">
                 <div class="img">
                   <a href="<?php echo Url::to(['article/detail','id'=>$articleAboutCom->id]);?>"​>
                     <img src="<?php echo $articleAboutCom->thumbnail_url; ?>" alt="<?php echo Html::encode($articleAboutCom->title); ?>">
                   </a>
                 </div>
                 <div class="txt">
-                  <h5>
+                  <h5 style="margin-top: 0;">
                     <a href="<?php echo Url::to(['article/detail','id'=>$articleAboutCom->id]);?>"​>
                       <?php echo Html::encode($articleAboutCom->title); ?>
                     </a>
@@ -160,9 +161,9 @@ use app\modules\frontend\assets\FrontendAsset;
             <?php endif; ?>
           </div>
           <div class="col-r">
-            <?php if (!empty($articleAboutNewsList)) : ?>
+            <?php if (2 <= count($articleAboutNewsList) ) : ?>
             <h3 class="tit-h3"><span>想了解世界</span></h3>
-            <div class="hot">
+            <div class="hot" style="height: 172px;">
               <?php $articleAboutNews = array_shift($articleAboutNewsList); ?>
               <div class="news-img">
                 <a href="<?php echo Url::to(['article/detail','id'=>$articleAboutNews->id]);?>"​>
@@ -199,7 +200,7 @@ use app\modules\frontend\assets\FrontendAsset;
           <li>
             <a href="javascript:;"​ class="item1">
               <img src="<?php echo $school->logo_url; ?>" alt="<?php echo Html::encode($school->name); ?>">
-              <h5 class="label"><?php echo Html::encode($school->name); ?></h5>
+              <h5 class="label" style="color: #656565;"><?php echo Html::encode($school->name); ?></h5>
             </a>
           </li>
           <?php endforeach; ?>
@@ -230,17 +231,17 @@ use app\modules\frontend\assets\FrontendAsset;
               <li>
                 <i class="icon i1"></i>
                 <p class="p1">咨询电话</p>
-                <p><?php echo Html::encode(JxConfiguration::get('company_tel'));?></p>
+                <p><?php echo Html::encode(JxConfiguration::get('COMPANY_TEL'));?></p>
               </li>
               <li>
                 <i class="icon i2"></i>
                 <p class="p1">公司网址</p>
-                <p><?php echo Html::encode(JxConfiguration::get('company_website'));?></p>
+                <p><?php echo Html::encode(JxConfiguration::get('COMPANY_WEBSITE'));?></p>
               </li>
               <li>
                 <i class="icon i3"></i>
                 <p class="p1">公司地址</p>
-                <p><?php echo Html::encode(JxConfiguration::get('company_address'));?></p>
+                <p><?php echo Html::encode(JxConfiguration::get('COMPANY_ADDRESS'));?></p>
               </li>
             </ul>
           </div>
@@ -264,4 +265,5 @@ use app\modules\frontend\assets\FrontendAsset;
 
 <style>
 a.item:hover {color: #6b6b6b; text-decoration:none;}
+a.item1:hover {color: #6b6b6b; text-decoration:none;}
 </style>

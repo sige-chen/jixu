@@ -10,7 +10,9 @@ use yii\base\Widget;
 <div class="container">
   <div class="row" style="padding:50px 0;">
     <div class="col-md-6">
+      <?php if ( null !== $ad) : ?>
       <img src="<?php echo $ad->image_url; ?>" style="width:100%;">
+      <?php endif; ?>
     </div>
     <div class="col-md-1"></div>
     <div class="col-md-4">
