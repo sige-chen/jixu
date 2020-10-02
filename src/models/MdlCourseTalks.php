@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\helpers\JxDictionary;
 
 /**
  * This is the model class for table "jx_course_talks".
@@ -58,5 +59,29 @@ class MdlCourseTalks extends \yii\db\ActiveRecord
      */
     public function getUser() {
         return MdlUsers::findOne($this->user_id);
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \yii\db\BaseActiveRecord::afterSave()
+     */
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+        if ( $insert ) {
+            $calEvent = new MdlUserCourseCalendarEvents();
+            $calEvent->course_id = $this->course_id;
+            $calEvent->user_id = \Yii::$app->user->id;
+            $calEvent->date = date('Y-m-d');
+            $calEvent->time = date('H:i:s');
+            if ( 0 == $this->parent_id ) {
+                $calEvent->event = '发起讨论';
+                $calEvent->type = JxDictionary::value('CAL_EVENT_TYPE', 'COURSE_TALK_ASK');
+            } else {
+                $calEvent->event = '回复讨论';
+                $calEvent->type = JxDictionary::value('CAL_EVENT_TYPE', 'COURSE_TALK_REPLY');
+            }
+            $calEvent->duration = 1;
+            $calEvent->save();
+        }
     }
 }

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\helpers\JxDictionary;
 
 /**
  * This is the model class for table "jx_course_notes".
@@ -48,5 +49,24 @@ class MdlCourseNotes extends \yii\db\ActiveRecord
             'content' => 'Content',
             'type' => 'Type',
         ];
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \yii\db\BaseActiveRecord::afterSave()
+     */
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+        if ( $insert ) {
+            $calEvent = new MdlUserCourseCalendarEvents();
+            $calEvent->course_id = $this->course_id;
+            $calEvent->user_id = \Yii::$app->user->id;
+            $calEvent->date = date('Y-m-d');
+            $calEvent->time = date('H:i:s');
+            $calEvent->event = '添加笔记';
+            $calEvent->type = JxDictionary::value('CAL_EVENT_TYPE', 'COURSE_NOTE_ADD');
+            $calEvent->duration = 1;
+            $calEvent->save();
+        }
     }
 }

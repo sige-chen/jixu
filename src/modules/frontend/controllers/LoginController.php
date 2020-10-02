@@ -4,7 +4,6 @@ use app\modules\frontend\helpers\WebController;
 use app\models\MdlAdvertisements;
 use app\models\MdlUsers;
 use app\models\MdlUserPasswordResetTokens;
-use app\helpers\JxConfiguration;
 use yii\helpers\Url;
 class LoginController extends WebController {
     /**

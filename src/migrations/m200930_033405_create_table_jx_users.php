@@ -17,6 +17,7 @@ class m200930_033405_create_table_jx_users extends Migration {
             'nickname' => $this->string(32)->notNull()->comment('昵称'),
         ]);
         $this->addCommentOnTable('jx_users', '用户表');
+        $this->insert('jx_users', ['email'=>'user@example.com','password'=>md5('123456'),'photo_url'=>'/img/avatar.png','nickname'=>'用户01']);
     }
     
     /**

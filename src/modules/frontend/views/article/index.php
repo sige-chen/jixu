@@ -8,7 +8,7 @@ use app\modules\frontend\widgets\Pager;
 /* @var \app\models\MdlArticles $articles */
 /* @var mixed $query */
 ?>
-<?php echo Banner::widget(['target'=>'company_news']); ?>
+<?php echo Banner::widget(['target'=>'ARTICLE_INDEX']); ?>
 <div><br></div>
 <div class="main">
   <div class="wp">
@@ -22,7 +22,7 @@ use app\modules\frontend\widgets\Pager;
             </a>
           </div>
           <div class="txt">
-            <h3>
+            <h3 style="margin-top: 0;line-height: 26px;">
               <a href="<?php echo Url::to(['article/read', 'id'=>$article->id]); ?>">
                 <?php echo Html::encode($article->title); ?>
               </a>

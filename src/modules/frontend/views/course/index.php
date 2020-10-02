@@ -6,7 +6,7 @@ use yii\helpers\Url;
 /* @var \app\models\MdlCourses[] $courses */
 /* @var \app\models\MdlPage $cusContent */
 ?>
-<?php echo Banner::widget(['target'=>'course_index']); ?>
+<?php echo Banner::widget(['target'=>'COURSE_INDEX']); ?>
 <div class="main">
   <div class="rowh1 bgf">
     <div class="wp">

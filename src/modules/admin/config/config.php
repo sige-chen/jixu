@@ -47,5 +47,11 @@ return array(
             'exts' => ['png','jpg'],
             'require' => true,
         ),
+        'admin-photo' => array(
+            'file' => 'file',
+            'path' => 'admin-photos',
+            'exts' => ['png','jpg'],
+            'require' => true,
+        ),
     ),
 );

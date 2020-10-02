@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use app\modules\frontend\widgets\Pager;
 /* @var \app\models\MdlAdminUsers $teachers */
 ?>
-<?php echo Banner::widget(['target'=>'teacher_index']); ?>
+<?php echo Banner::widget(['target'=>'TEACHER_INDEX']); ?>
 <div class="main">
   <div class="wp">
     <ul class="ul-tutor">
@@ -18,7 +18,7 @@ use app\modules\frontend\widgets\Pager;
           <div class="txt">
             <div class="name"><?php echo Html::encode($teacher->nickname); ?></div>
             <div class="desc"><?php echo Html::encode($teacher->title); ?></div>
-            <div><p><?php echo Html::encode($teacher->intorduction); ?></p></div>
+            <div><p><?php echo Html::encode($teacher->introduction); ?></p></div>
           </div>
           <div class="btn-tab">
             <?php foreach ( $teacher->getCourses() as $course ): ?>
@@ -37,3 +37,6 @@ use app\modules\frontend\widgets\Pager;
     <?php echo Pager::widget(['query'=>$query]);?>
   </div>
 </div>
+<style>
+.ul-tutor .item {border: solid #dadada 1px;}
+</style>

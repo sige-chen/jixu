@@ -1,6 +1,7 @@
 <?php
 namespace app\modules\frontend\widgets;
 use app\models\MdlAdvertisements;
+use app\helpers\JxDictionary;
 class Banner extends \yii\bootstrap\Widget {
     /**
      * @var string
@@ -12,7 +13,10 @@ class Banner extends \yii\bootstrap\Widget {
      * @see \yii\base\Widget::run()
      */
     public function run() {
-        $banner = MdlAdvertisements::findOne(['position'=>$this->target]);
-        return "<div class=\"ban\"><img src=\"{$banner->img_url}\" alt=\"\"></div>";
+        $banner = MdlAdvertisements::findOne(['position'=>JxDictionary::value('AD_POSITION', $this->target)]);
+        if ( null === $banner ) {
+            return '';
+        }
+        return "<div class=\"ban\"><img src=\"{$banner->image_url}\" alt=\"\"></div>";
     }
 }

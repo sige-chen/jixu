@@ -27,7 +27,7 @@ use app\models\MdlUsers;
         <div class="icon">
           <i class="fas fa-user"></i>
         </div>
-        <a href="#" class="small-box-footer">更多用户 <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="<?php echo Url::to(['user/index']);?>" class="small-box-footer">更多用户 <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
   </div>

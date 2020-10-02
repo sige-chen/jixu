@@ -21,7 +21,8 @@ class m201002_031245_add_data_to_jx_courses extends Migration {
             'short_desc'=>'长沙简学科技有限是一家网络在线教育培训机构，我们的办学理念是：塑造优质的课程，完善学员的技能水平，树立教育行业的标杆。 我们的宗旨是：一心做教育，二心做品质，三心做服务。 一次选择，一生改变。 你在哪里！我们愿做你的指路人。长沙简学教育科技有限公司期待你的到来！',
             'teacher_id'=>'2',
             'short_name'=>'CG插画原画0基础',
-            'taobao_link'=>'https://detail.tmall.com/item.htm?id=558626763318'
+            'taobao_link'=>'https://detail.tmall.com/item.htm?id=558626763318',
+            'online_book_url' => '/img/demo/course-book-001.pdf',
         ]);
         $this->insert('jx_courses', [
             'name'=>'Java 0基础就业全系列公开课',

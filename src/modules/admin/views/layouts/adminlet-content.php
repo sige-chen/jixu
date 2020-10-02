@@ -50,7 +50,7 @@ $bundle = AdminAsset::register($this);
             <img src="<?php echo $user->photo_url; ?>" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block"><?php echo Html::encode($user->nickname); ?></a>
+            <a href="<?php echo Url::to(['employee/edit-myself']); ?>" class="d-block"><?php echo Html::encode($user->nickname); ?></a>
           </div>
           <div style="line-height: 32px;color: darkgrey;padding-left: 50%;">
             <a href="<?php echo Url::to(['login/logout']);?>"><i class="fas fa-sign-out-alt" style="line-height: 32px;"></i></a>
@@ -62,6 +62,12 @@ $bundle = AdminAsset::register($this);
               <a href="<?php echo Url::to(['index/index']); ?>" class="nav-link <?php if ('dashboard'==$activeMenuItem): ?>active<?php endif;?>">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>仪表盘</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?php echo Url::to(['user/index']); ?>" class="nav-link <?php if ('user'==$activeMenuItem): ?>active<?php endif;?>">
+                <i class="nav-icon fas fa-user"></i>
+                <p>用户管理</p>
               </a>
             </li>
             <li class="nav-item">

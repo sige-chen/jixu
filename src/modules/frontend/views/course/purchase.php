@@ -6,7 +6,7 @@ use yii\helpers\Url;
 <div class="container">
   <div style="padding: 50px;border: solid silver 1px;margin: 50px 0;background-color: #f7f7f7;">
     <div style="float:right;">
-      <img src="<?php echo $course->thumbnail_url;?>" style="width:100%;">
+      <img src="<?php echo $course->thumbnail_url;?>" style="max-width: 300px;">
     </div>
     <div>
       <h1>1. 淘宝购买密钥</h1>

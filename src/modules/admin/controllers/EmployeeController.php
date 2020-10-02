@@ -71,4 +71,13 @@ class EmployeeController extends WebController {
         }
         return $this->redirect(['employee/index']);
     }
+    
+    /**
+     * 管理员个人信息编辑
+     * @return string
+     */
+    public function actionEditMyself() {
+        $admin = \Yii::$app->user->getIdentity();
+        return $this->render('myself',['admin'=>$admin]);
+    }
 }

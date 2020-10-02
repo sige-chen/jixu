@@ -3,7 +3,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use app\widgets\Alert;
 use yii\base\Widget;
-use app\helpers\JxDictionary;
+use app\modules\admin\widgets\FormFileUploadField;
 /* @var \app\models\MdlAdminUsers $admin */
 ?>
 <ol class="admin-breadcrumb">
@@ -38,19 +38,17 @@ use app\helpers\JxDictionary;
       <input type="text" class="form-control" name="form[nickname]" value="<?php echo Html::encode($admin->nickname); ?>">
     </div>
     <div class="form-group">
-      <label>类型</label>
-      <select class="form-control" name="form[type]">
-        <?php foreach ( JxDictionary::getItems('ADMIN_USER_TYPE') as $tvalue => $tname ) : ?>
-          <option value="<?php echo $tvalue?>"
-            <?php if ( $tvalue == $admin->type): ?>selected<?php endif; ?>
-          ><?php echo Html::encode($tname);?></option>
-        <?php endforeach; ?>
-      </select>
-    </div>
-    <div class="form-group">
       <label>职位</label>
       <input type="text" class="form-control" name="form[title]" value="<?php echo Html::encode($admin->title);?>">
     </div>
+    
+    <div class="form-group">
+      <label>头像</label>
+      <img src="<?php echo $admin->photo_url; ?>" id="img-priview">
+      <input type="hidden" name="form[photo_url]" value="<?php echo $admin->photo_url;?>">
+      <?php echo FormFileUploadField::widget(['type' => 'admin-photo','saveUrlTo' => '[name="form[photo_url]"]','preViewImage' => '#img-priview',]);?>
+    </div>
+    
     <div class="form-group">
       <label>介绍</label>
       <textarea class="form-control" name="form[introduction]"><?php echo Html::encode($admin->introduction); ?></textarea>

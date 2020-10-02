@@ -96,6 +96,20 @@ class CourseController extends WebController {
             throw new HttpException(404);
         }
         
+        if ( !$course->isPurchased ) {
+            return $this->redirect(['course/purchase','course'=>$course->id]);
+        }
+        
+        $calEvent = new MdlUserCourseCalendarEvents();
+        $calEvent->course_id = $course->id;
+        $calEvent->user_id = \Yii::$app->user->id;
+        $calEvent->date = date('Y-m-d');
+        $calEvent->time = date('H:i:s');
+        $calEvent->event = '教材阅读';
+        $calEvent->type = JxDictionary::value('CAL_EVENT_TYPE', 'COURSE_BOOK_READING');
+        $calEvent->duration = 1;
+        $calEvent->save();
+        
         $this->setLayoutParam('course', $course);
         $this->setLayoutParam('courseActiveItem', 'book');
         $this->setPageTitle($course->name.'教材');
@@ -215,6 +229,20 @@ class CourseController extends WebController {
             throw new HttpException(404);
         }
         
+        if ( !$course->isPurchased ) {
+            return $this->redirect(['course/purchase','course'=>$course->id]);
+        }
+        
+        $calEvent = new MdlUserCourseCalendarEvents();
+        $calEvent->course_id = $course->id;
+        $calEvent->user_id = \Yii::$app->user->id;
+        $calEvent->date = date('Y-m-d');
+        $calEvent->time = date('H:i:s');
+        $calEvent->event = '观看视频';
+        $calEvent->type = JxDictionary::value('CAL_EVENT_TYPE', 'COURSE_VIDEO_WATCHING');
+        $calEvent->duration = 1;
+        $calEvent->save();
+        
         $this->setLayoutParam('course', $course);
         $this->setLayoutParam('courseActiveItem', 'video');
         $this->setPageTitle($course->name.'视频');
@@ -250,7 +278,7 @@ class CourseController extends WebController {
      * 试题问题页
      * @return string
      */
-    public function actionTestTesting( $id, $index=0 ) {
+    public function actionTestTesting( $id, $index=1 ) {
         $test = MdlCourseTests::findOne($id);
         if ( null === $test ) {
             throw new HttpException(404);
@@ -259,6 +287,20 @@ class CourseController extends WebController {
         $question = MdlCourseTestQuestions::find()->where(['index'=>$index,'test_id'=>$test->id])->one();
         
         $course = MdlCourses::findOne($test->course_id);
+        if ( !$course->isPurchased ) {
+            return $this->redirect(['course/purchase','course'=>$course->id]);
+        }
+        
+        $calEvent = new MdlUserCourseCalendarEvents();
+        $calEvent->course_id = $course->id;
+        $calEvent->user_id = \Yii::$app->user->id;
+        $calEvent->date = date('Y-m-d');
+        $calEvent->time = date('H:i:s');
+        $calEvent->event = '试题测试';
+        $calEvent->type = JxDictionary::value('CAL_EVENT_TYPE', 'COURSE_TEST_TESTING');
+        $calEvent->duration = 1;
+        $calEvent->save();
+        
         $this->setLayoutParam('course', $course);
         $this->setLayoutParam('courseActiveItem', 'test');
         $this->setPageTitle($course->name.'试题');
@@ -306,7 +348,6 @@ class CourseController extends WebController {
         $this->layout = '@app/modules/frontend/views/layouts/course';
         
         $myAnswers = \Yii::$app->session->get("testing-{$test->id}");
-        //\Yii::$app->session->remove("testing-{$test->id}");
         $questions = MdlCourseTestQuestions::find()->where(['test_id'=>$test->id])->orderBy(['index'=>SORT_ASC])->all();
         
         return $this->render('test-done',[
@@ -481,6 +522,7 @@ class CourseController extends WebController {
         $this->setPageTitle('编辑讨论');
         
         $talk = new MdlCourseTalks();
+        $talk->parent_id = 0;
         if ( !empty($id) ) {
             $talk = MdlCourseTalks::findOne($id);
         }
@@ -672,6 +714,7 @@ class CourseController extends WebController {
                 'events'=>MdlUserCourseCalendarEvents::findAll($condition)
             );
             $date->modify('+1 day');
+            $condition['date'] = $date->format('Y-m-d');
         }
         
         if ( 1 !== intval($date->format('N')) ) {

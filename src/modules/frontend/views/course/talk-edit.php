@@ -11,6 +11,7 @@ use yii\bootstrap\Html;
   <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->getCsrfToken();?>">
   <input type="hidden" name="form[course_id]" value="<?php echo $course->id; ?>">
   <input type="hidden" name="id" value="<?php echo $talk->id; ?>">
+  <input type="hidden" name="form[parent_id]" value="<?php echo $talk->parent_id; ?>">
   <div class="form-group">
     <label>标题</label>
     <input type="text" class="form-control" name="form[title]" value="<?php echo Html::encode($talk->title); ?>">
