@@ -17,7 +17,7 @@
 
 #### 联系
 
-<img src="./doc/assets/author-wechat.jpg" style="zoom:25%;float:left;" />
+<img src="./doc/assets/author-wechat.jpg" style="width:25%;float:left;" />
 
 
 
