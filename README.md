@@ -21,6 +21,6 @@
 
 
 
-#### 版权
+#### 授权信息
 
-内容采用 [MIT](http://www.opensource.org/licenses/mit-license.php) 协议
+技续采用 [MIT](http://www.opensource.org/licenses/mit-license.php) 开源许可证，你可以在商业项目中免费使用本项目或者基于本项目二次开发而不必支付费用。
