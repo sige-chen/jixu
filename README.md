@@ -15,7 +15,7 @@
 
 
 
-#### 联系
+#### 联系作者
 
 <img src="./doc/assets/author-wechat.jpg" style="width:25%;float:left;" />
 
