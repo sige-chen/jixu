@@ -15,6 +15,14 @@
 
 
 
+#### 在线演示
+
+http://demo.jixu.sigechen.com/
+
+体验码：jixu
+
+
+
 #### 联系作者
 
 <img src="./doc/assets/author-wechat.jpg" style="width:25%;float:left;" />
