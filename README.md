@@ -2,7 +2,7 @@
 
 “技续” 是一个功能完善的在线教育系统，适用于教育机构进行在线授课。系统基于采用PHP实现，非常适合进行二次开发与功能扩展。
 
-![](http://jixu.sigechen.com/img/screenshot-index.png)
+![](https://assets.sigechen.com/screenshot-index.png)
 
 
 
@@ -31,7 +31,7 @@ http://jixu.sigechen.com/
 
 #### 联系作者
 
-<img src="http://jixu.sigechen.com/img/author-wechat.jpg" style="width:25%;float:left;" />
+<img src="https://assets.sigechen.com/author-wechat.jpg" style="width:25%;float:left;" />
 
 
 
