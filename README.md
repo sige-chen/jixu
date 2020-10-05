@@ -31,7 +31,7 @@ http://jixu.sigechen.com/
 
 #### 联系作者
 
-<img src="http://jixu.sigechen.com/author-wechat.jpg" style="width:25%;float:left;" />
+<img src="http://jixu.sigechen.com/img/author-wechat.jpg" style="width:25%;float:left;" />
 
 
 
