@@ -23,6 +23,12 @@ http://demo.jixu.sigechen.com/
 
 
 
+#### 项目主页
+
+http://jixu.sigechen.com/
+
+
+
 #### 联系作者
 
 <img src="./doc/assets/author-wechat.jpg" style="width:25%;float:left;" />
