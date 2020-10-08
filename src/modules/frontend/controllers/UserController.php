@@ -29,7 +29,7 @@ class UserController extends WebController {
         
         $list = MdlUserCoursePurchases::findAll(['user_id'=>\Yii::$app->user->id]);
         foreach ( $list as $index => $item ) {
-            $list[$index] = $item->id;
+            $list[$index] = $item->course_id;
         }
         $courses = MdlCourses::findAll(['id'=>$list]);
         return $this->render('course-index', ['courses'=>$courses]);
