@@ -8,7 +8,7 @@ return array(
             'require' => true,
         ),
         'course-video' => array(
-            'file' => 'video',
+            'file' => 'file',
             'path' => 'course-videos',
             'exts' => ['mp4'],
             'require' => true,

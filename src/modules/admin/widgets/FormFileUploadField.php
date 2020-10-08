@@ -20,6 +20,18 @@ class FormFileUploadField extends \yii\bootstrap\Widget {
     public $preViewImage = null;
     
     /**
+     * 上传成功后的预览视频选择符
+     * @var unknown
+     */
+    public $previewVideo = null;
+    
+    /**
+     * 完成后的回调
+     * @var string
+     */
+    public $onComplete = '(function(){})();';
+    
+    /**
      * {@inheritDoc}
      * @see \yii\base\Widget::run()
      */

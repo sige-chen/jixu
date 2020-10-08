@@ -19,8 +19,10 @@ $(document).ready(function() {
     },
     onSubmit : function() {
       $('#file-status').html('<div class="spinner-border" role="status" style="height:1rem;width:1rem;"></div>');
+      $('#wdg-fileupload').modal('show');
     },
     onComplete: function(filename, response) {
+      setTimeout(function(){$('#wdg-fileupload').modal('hide');}, 100);
       $("#input-file").attr('disabled', 'disabled');
       if ( false == response.success ) {
         alert(response.message);
@@ -32,7 +34,24 @@ $(document).ready(function() {
       <?php if ( null !== $widget->preViewImage ) :?>
       $('<?php echo $widget->preViewImage?>').attr('src', response.data.url);
       <?php endif; ?>
+      <?php if ( null !== $widget->previewVideo ) :?>
+      $('<?php echo $widget->previewVideo?>').attr('src', response.data.url);
+      <?php endif; ?>
+      <?php echo $widget->onComplete; ?>
     }
   });
 });
 </script>
+
+<!-- 文件上传弹框  -->
+<div class="modal fade" id="wdg-fileupload" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header"></div>
+      <div class="modal-body" style="text-align: center;color: #888888;">
+        <i class="fas fa-2x fa-sync fa-spin"></i>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>

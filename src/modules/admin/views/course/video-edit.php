@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use app\widgets\Alert;
 use yii\base\Widget;
 use app\modules\admin\assets\AdminAsset;
+use app\modules\admin\widgets\FormFileUploadField;
 /* @var \app\models\MdlCourseVideos $video */
 /* @var \app\models\MdlCourseVideoCollections $collection */
 ?>
@@ -34,14 +35,12 @@ use app\modules\admin\assets\AdminAsset;
         ></video>
         <input type="hidden" name="form[video_url]" value="<?php echo $video->video_url;?>">
         <?php if ( $video->getIsNewRecord() ) : ?>
-        <div class="input-group mb-3">
-          <input type="file" class="form-control" name="video" id="file-thumbnail" onchange="onFileVideoChange()">
-          <div class="input-group-append" class="file-upload-status">
-            <span class="input-group-text" id="file-status">
-              <i class="fas fa-ellipsis-h"></i>
-            </span>
-          </div>
-        </div>
+        <?php echo FormFileUploadField::widget([
+            'type' => 'course-video',
+            'saveUrlTo' => '[name="form[video_url]"]',
+            'previewVideo' => '#video-preview',
+            'onComplete' => 'onFileVideoChange();',
+        ]);?>
         <?php endif; ?>
       </div>
       <div class="form-group">
@@ -69,31 +68,14 @@ use app\modules\admin\assets\AdminAsset;
   </div>
 </div>
 <script>
-$(document).ready(function() {
-  $("#file-thumbnail").AjaxFileUpload({
-    action : '<?php echo Url::to(['resource/upload', 'type'=>'course-video']); ?>',
-    onChange : function() {
-      $('#file-status').html('<i class="fas fa-hourglass-start"></i>');
-    },
-    onSubmit : function() {
-      $('#file-status').html('<div class="spinner-border" role="status" style="height:1rem;width:1rem;"></div>');
-    },
-    onComplete: function(filename, response) {
-      $('[name="form[video_url]"]').val(response.data.url);
-      $('#file-status').html('<i class="fas fa-check"></i>');
-      $("#file-thumbnail").attr('disabled', 'disabled');
-    }
-  });
-});
-
 /** 视频文件选择事件 */
 function onFileVideoChange() {
-  var files = document.getElementById("file-thumbnail").files[0];
+  var files = document.getElementById("input-file").files[0];
   var url = URL.createObjectURL(files);
   $('#video-preview').attr('src', url);
 
   <?php if ($video->getIsNewRecord()) : ?>
-  $('#txt-title').val($('#file-thumbnail')[0].files[0].name);
+  $('#txt-title').val($('#input-file')[0].files[0].name);
   <?php endif; ?>
   
   var video = $('#video-preview').get(0);
